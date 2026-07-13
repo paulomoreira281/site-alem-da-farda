@@ -211,6 +211,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     margin:0 0 22px;
     filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));
   }
+  .hero-logo-mobile{display:none} /* mostrada só no mobile */
   .hero-photo-col{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:520px;overflow:hidden}
   .hero-photo-col .hero-chips{margin-bottom:0;position:relative;z-index:3}
 
@@ -670,9 +671,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       padding:24px 18px 36px;
       text-align:center;
     }
+    /* Mobile: logo em cima da foto, depois foto, depois resto do copy */
+    .hero-logo-mobile{
+      order:0;display:block !important;
+      width:100%;max-width:min(380px, 82vw);height:auto;
+      margin:0 auto 14px;
+      filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));
+    }
+    .hero-copy .hero-logo{display:none} /* esconde a logo desktop no mobile */
     .hero-copy{order:2}
     .hero-copy .badge{margin-bottom:14px}
-    .hero-photo-col{order:1;min-height:0;align-items:center;padding:8px 0 4px;gap:12px}
+    .hero-photo-col{order:1;min-height:0;align-items:center;padding:4px 0 4px;gap:12px}
     /* Mobile: foto REDONDA — rosto + colete POLÍCIA CIVIL visíveis */
     .hero-photo{
       width:min(180px, 48vw);height:auto;aspect-ratio:1/1;
@@ -682,8 +691,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       box-shadow:0 16px 32px rgba(0,0,0,.75), 0 0 0 6px rgba(212,168,87,.08);
     }
     .hero-photo::after{display:none}
-    .badge,.hero h1,.hero .lead,.hero-chips,.hero-logo{margin-left:auto;margin-right:auto}
-    .hero-logo{max-width:min(380px, 82vw);margin-bottom:16px}
+    .badge,.hero h1,.hero .lead,.hero-chips{margin-left:auto;margin-right:auto}
     .hero .lead{text-align:justify;text-align-last:left}
     .hero-chips{justify-content:center}
     .form-card{margin-left:auto;margin-right:auto;text-align:left}
@@ -757,6 +765,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- HERO 2 colunas -->
 <section class="hero">
   <div class="hero-grid">
+
+    <img src="/logo-imersao-pc.png" alt="Imersão Polícia Civil 2026" class="hero-logo-mobile" width="540" height="175" aria-hidden="true" />
 
     <div class="hero-copy">
       <img src="/logo-imersao-pc.png" alt="Imersão Polícia Civil 2026" class="hero-logo" width="540" height="175" fetchpriority="high" />
