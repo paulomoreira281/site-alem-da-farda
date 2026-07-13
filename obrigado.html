@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow" />
 <title>Você está dentro — Te vejo terça às 20h | Carla Martins</title>
 <meta name="description" content="Inscrição confirmada. Redirecionando pro grupo do WhatsApp..." />
-<meta http-equiv="refresh" content="6;url=https://chat.whatsapp.com/HT6sLoiHLq0DE6wUP6LtZG" />
+<meta http-equiv="refresh" content="5;url=https://chat.whatsapp.com/HT6sLoiHLq0DE6wUP6LtZG" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -242,7 +242,7 @@
 
 <!-- TOP STRIP -->
 <div class="top-strip">
-  <span class="dot"></span>VAGA CONFIRMADA · TERÇA, 20H · NÃO FICA GRAVADO
+  <span class="dot"></span>VAGA CONFIRMADA · 28/7, TERÇA, 20H · NÃO FICA GRAVADO
 </div>
 
 <div class="wrap">
@@ -259,8 +259,8 @@
     <div class="badge"><span class="dot"></span> VOCÊ ESTÁ DENTRO</div>
 
     <h1>
-      Sua vaga tá <span class="red">garantida.</span><br/>
-      <span class="gold">Te vejo terça, 20h.</span>
+      Sua vaga tá <span class="red">garantida<span id="oi-nome"></span>.</span><br/>
+      <span class="gold">Te vejo dia 28/7, terça, 20h.</span>
     </h1>
 
     <p class="lead">
@@ -268,7 +268,7 @@
     </p>
 
     <div class="info-box">
-      ⚠ TERÇA · 20H · ZOOM · <b>NÃO FICA GRAVADO</b>
+      ⚠ 28/7 · TERÇA · 20H · ZOOM · <b>NÃO FICA GRAVADO</b>
     </div>
 
     <div class="countdown">
@@ -292,7 +292,17 @@
 </div>
 
 <script>
-  // Countdown + redirect
+  // Puxa nome do lead do localStorage pra saudação personalizada
+  try {
+    var lead = JSON.parse(localStorage.getItem('carla_lead') || '{}');
+    if (lead && lead.nome) {
+      var primeiroNome = String(lead.nome).trim().split(/\s+/)[0];
+      var elNome = document.getElementById('oi-nome');
+      if (elNome && primeiroNome) elNome.textContent = ', ' + primeiroNome;
+    }
+  } catch(_){}
+
+  // Countdown + redirect pro grupo do WhatsApp
   var sec = 5;
   var el = document.getElementById('counter');
   var WHATSAPP_URL = 'https://chat.whatsapp.com/HT6sLoiHLq0DE6wUP6LtZG';
