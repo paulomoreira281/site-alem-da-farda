@@ -11,7 +11,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="carla-pc.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="carla-pc.jpg" fetchpriority="high" media="(min-width: 981px)">
+<link rel="preload" as="image" href="carla-pc-face.jpg" fetchpriority="high" media="(max-width: 980px)">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet"></noscript>
 
@@ -507,7 +508,10 @@
     width:180px;
     height:180px;
     border-radius:50%;
-    background:#050505 center 20%/cover no-repeat;
+    background-color:#050505;
+    background-repeat:no-repeat;
+    background-position:center 30%;
+    background-size:cover;
     border:3px solid var(--gold);
     box-shadow:0 12px 30px rgba(0,0,0,.6), 0 0 0 6px rgba(212,168,87,.08);
     flex-shrink:0;
@@ -673,15 +677,14 @@
       text-align:center;
     }
     .hero-copy{order:2}
-    .hero-photo-col{order:1;min-height:0;align-items:center;padding:20px 0}
-    /* Mobile: retangular menor, com rosto mais próximo */
+    .hero-photo-col{order:1;min-height:0;align-items:center;padding:8px 0}
+    /* Mobile: foto REDONDA com foco no rosto */
     .hero-photo{
-      width:min(200px, 55vw);height:auto;aspect-ratio:3/4;
-      border-radius:14px;
-      background-position:center 15%;
-      background-size:130% auto;
-      border:2px solid var(--gold-line);
-      box-shadow:0 18px 40px rgba(0,0,0,.7), 0 0 0 4px rgba(212,168,87,.05);
+      width:min(150px, 40vw);height:auto;aspect-ratio:1/1;
+      border-radius:50%;
+      background:url('carla-pc-face.jpg') center 30%/cover no-repeat;
+      border:3px solid var(--gold);
+      box-shadow:0 12px 26px rgba(0,0,0,.7), 0 0 0 5px rgba(212,168,87,.08);
     }
     .hero-photo::after{display:none}
     .badge,.hero h1,.hero .lead,.hero-chips{margin-left:auto;margin-right:auto}
@@ -711,7 +714,7 @@
     .badge{font-size:.6rem;padding:6px 11px;letter-spacing:.08em}
     .hero h1{font-size:1.55rem;line-height:1.08}
     .hero .lead{font-size:.92rem}
-    .hero-photo{width:min(180px, 52vw)}
+    .hero-photo{width:min(130px, 40vw)}
     .chip{font-size:.7rem;padding:6px 10px}
     .pill{font-size:.85rem;padding:11px 13px;gap:10px}
     .pill .check{width:20px;height:20px}
@@ -839,7 +842,7 @@
     <h2 class="section-title" style="margin-bottom:44px">A pessoa que vai <span class="gold">do seu lado</span></h2>
 
     <div class="mentor-single reveal">
-      <div class="mentor-photo" style="background-image:url('carla-pc.jpg')"></div>
+      <div class="mentor-photo" style="background-image:url('carla-pc-face.jpg')"></div>
       <div class="mentor-body">
         <h3>Carla Martins</h3>
         <div class="role">Polícia Civil · Criadora do Método Além da Farda</div>
