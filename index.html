@@ -192,7 +192,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     align-items:center;
   }
   .hero-copy{position:relative;z-index:4}
-  .hero-photo-col{position:relative;align-self:stretch;display:flex;align-items:center;justify-content:center;min-height:520px;overflow:hidden}
+  .hero-photo-col{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:520px;overflow:hidden}
+  .hero-photo-col .hero-chips{margin-bottom:0;position:relative;z-index:3}
 
   .hero-photo{
     position:relative;
@@ -362,11 +363,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .submit-btn:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(19,168,122,.55), inset 0 1px 0 rgba(255,255,255,.3)}
   .submit-btn:active{transform:translateY(0)}
   .form-foot{
-    margin-top:14px;
-    color:var(--text-muted);
-    font-size:12.5px;text-align:center;
-    line-height:1.6;
+    margin-top:16px;
+    display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
   }
+  .foot-chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(212,168,87,.12);
+    border:1px solid var(--gold-line);
+    color:var(--gold-bright);
+    font-family:'Oswald','Inter',sans-serif;
+    font-weight:600;
+    font-size:.72rem;letter-spacing:.05em;
+    padding:6px 11px;border-radius:6px;
+    text-transform:uppercase;
+  }
+  .foot-chip svg{width:12px;height:12px}
 
   .below-cta{
     display:block;
@@ -641,14 +652,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       text-align:center;
     }
     .hero-copy{order:2}
-    .hero-photo-col{order:1;min-height:0;align-items:center;padding:20px 0 12px}
-    /* Mobile: foto REDONDA GRANDE — rosto + colete POLÍCIA CIVIL visíveis */
+    .hero-photo-col{order:1;min-height:0;align-items:center;padding:12px 0 8px;gap:14px}
+    /* Mobile: foto REDONDA — rosto + colete POLÍCIA CIVIL visíveis */
     .hero-photo{
-      width:min(240px, 62vw);height:auto;aspect-ratio:1/1;
+      width:min(180px, 48vw);height:auto;aspect-ratio:1/1;
       border-radius:50%;
       background:url('carla-pc-face.jpg?v=4243') center 30%/cover no-repeat;
-      border:4px solid var(--gold);
-      box-shadow:0 20px 40px rgba(0,0,0,.75), 0 0 0 8px rgba(212,168,87,.10);
+      border:3px solid var(--gold);
+      box-shadow:0 16px 32px rgba(0,0,0,.75), 0 0 0 6px rgba(212,168,87,.08);
     }
     .hero-photo::after{display:none}
     .badge,.hero h1,.hero .lead,.hero-chips{margin-left:auto;margin-right:auto}
@@ -684,7 +695,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .badge{font-size:.6rem;padding:6px 11px;letter-spacing:.08em}
     .hero h1{font-size:1.55rem;line-height:1.08}
     .hero .lead{font-size:.92rem}
-    .hero-photo{width:min(200px, 58vw)}
+    .hero-photo{width:min(150px, 44vw)}
     .chip{font-size:.7rem;padding:6px 10px}
     .pill{font-size:.85rem;padding:11px 13px;gap:10px}
     .pill .check{width:20px;height:20px}
@@ -748,6 +759,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <strong>Preencha seus dados abaixo para reservar sua vaga e entre no grupo do WhatsApp.</strong>
       </p>
 
+      <form class="form-card" id="liveForm" novalidate>
+        <input type="text" class="input" name="nome" id="nome" placeholder="Digite seu nome..." required />
+        <input type="tel" class="input" name="whatsapp" id="whatsapp" placeholder="Digite seu WhatsApp com DDD..." required />
+
+        <button type="submit" class="submit-btn">QUERO RESERVAR MINHA VAGA GRATUITAMENTE</button>
+
+        <div class="form-foot">
+          <span class="foot-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            28/7 · Terça
+          </span>
+          <span class="foot-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            20h
+          </span>
+          <span class="foot-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Gratuita
+          </span>
+        </div>
+      </form>
+    </div>
+
+    <div class="hero-photo-col">
+      <div class="hero-tape" aria-hidden="true"></div>
+      <div class="hero-tape-2" aria-hidden="true"></div>
+      <div class="hero-photo" aria-label="Carla Martins"></div>
       <div class="hero-chips">
         <span class="chip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -762,23 +800,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           Meet
         </span>
       </div>
-
-      <form class="form-card" id="liveForm" novalidate>
-        <input type="text" class="input" name="nome" id="nome" placeholder="Digite seu nome..." required />
-        <input type="tel" class="input" name="whatsapp" id="whatsapp" placeholder="Digite seu WhatsApp com DDD..." required />
-
-        <button type="submit" class="submit-btn">QUERO RESERVAR MINHA VAGA GRATUITAMENTE</button>
-
-        <div class="form-foot">
-          ✓ Gratuito &nbsp;·&nbsp; ✓ Ao vivo &nbsp;·&nbsp; ✓ NÃO fica gravado
-        </div>
-      </form>
-    </div>
-
-    <div class="hero-photo-col">
-      <div class="hero-tape" aria-hidden="true"></div>
-      <div class="hero-tape-2" aria-hidden="true"></div>
-      <div class="hero-photo" aria-label="Carla Martins"></div>
     </div>
 
   </div>
