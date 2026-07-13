@@ -11,7 +11,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="carla-pc.jpg" fetchpriority="high">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet"></noscript>
 
 <style>
   :root{
@@ -94,6 +96,11 @@
     50%{box-shadow:0 0 0 6px rgba(255,255,255,0)}
   }
   .top-strip strong{color:#fff;font-weight:800}
+  .top-strip .ts-br{display:none}
+  @media (max-width:600px){
+    .top-strip .ts-br{display:inline;line-height:0}
+    .top-strip{line-height:1.5}
+  }
   @media (min-width:600px){
     .top-strip{font-size:.82rem;padding:12px 14px;letter-spacing:.2em}
   }
@@ -185,7 +192,7 @@
     width:100%;
     max-width:460px;
     aspect-ratio:3/4;
-    background:url('carla.jpg') center 18%/cover no-repeat;
+    background:url('carla-pc.jpg') center 20%/cover no-repeat;
     border-radius:12px;
     box-shadow:0 30px 80px rgba(0,0,0,.7);
   }
@@ -231,12 +238,16 @@
   .hero h1 .gold{color:var(--gold-bright)}
   .hero h1 .red{color:#ff3a55}
   .hero .lead{
-    color:var(--text-soft);
+    color:#fff;
     font-size:clamp(1rem, 1.3vw, 1.1rem);
     line-height:1.55;
     max-width:540px;
-    margin:0 0 26px;
+    margin:0 0 14px;
+    text-align:justify;
+    text-align-last:left;
+    hyphens:auto;
   }
+  .hero .lead:last-of-type{margin-bottom:26px}
   .hero .lead strong{color:#fff;font-weight:700}
 
   /* chips de detalhe (data · hora · plataforma) */
@@ -658,15 +669,18 @@
     }
     .hero-copy{order:2}
     .hero-photo-col{order:1;min-height:0;align-items:center}
+    /* Mobile: retangular pra mostrar rosto + colete "POLÍCIA CIVIL" */
     .hero-photo{
-      width:160px;height:160px;aspect-ratio:1;
-      border-radius:50%;
-      background-position:center 20%;
-      border:3px solid var(--gold-line);
-      box-shadow:0 18px 40px rgba(0,0,0,.7), 0 0 0 6px rgba(212,168,87,.06);
+      width:min(280px, 72vw);height:auto;aspect-ratio:3/4;
+      border-radius:14px;
+      background-position:center 22%;
+      background-size:cover;
+      border:2px solid var(--gold-line);
+      box-shadow:0 18px 40px rgba(0,0,0,.7), 0 0 0 4px rgba(212,168,87,.05);
     }
     .hero-photo::after{display:none}
     .badge,.hero h1,.hero .lead,.hero-chips{margin-left:auto;margin-right:auto}
+    .hero .lead{text-align:justify;text-align-last:left}
     .hero-chips{justify-content:center}
     .form-card{margin-left:auto;margin-right:auto;text-align:left}
   }
@@ -691,7 +705,7 @@
     .badge{font-size:.6rem;padding:6px 11px;letter-spacing:.08em}
     .hero h1{font-size:1.55rem;line-height:1.08}
     .hero .lead{font-size:.92rem}
-    .hero-photo{width:140px;height:140px}
+    .hero-photo{width:min(240px, 68vw)}
     .chip{font-size:.7rem;padding:6px 10px}
     .pill{font-size:.85rem;padding:11px 13px;gap:10px}
     .pill .check{width:20px;height:20px}
@@ -725,7 +739,7 @@
 
 <!-- TOP STRIP (faixa vermelha) -->
 <div class="top-strip">
-  <span class="ts-dot"></span>EXCLUSIVO PARA CONCURSEIROS DA <strong>POLÍCIA CIVIL</strong> · <strong>28/7, TERÇA, 20H</strong> · <strong>NÃO FICA GRAVADO</strong>
+  <span class="ts-dot"></span>EXCLUSIVO PARA CONCURSO DA <strong>POLÍCIA CIVIL</strong><br class="ts-br"><strong>28/7, TERÇA, 20H</strong> · <strong>NÃO FICA GRAVADO</strong>
 </div>
 
 <!-- HERO 2 colunas -->
@@ -762,15 +776,9 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
           Meet
         </span>
-        <span class="chip" style="background:rgba(179,18,42,.15);border-color:rgba(255,58,85,.45);color:#ff8a98">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
-          Não fica gravado
-        </span>
       </div>
 
       <form class="form-card" id="liveForm" novalidate>
-        <div class="form-top">⚠ 28/7 · TERÇA · 20H · <b>NÃO FICA GRAVADO</b></div>
-
         <input type="text" class="input" name="nome" id="nome" placeholder="Digite seu nome..." required />
         <input type="tel" class="input" name="whatsapp" id="whatsapp" placeholder="Digite seu WhatsApp com DDD..." required />
 
