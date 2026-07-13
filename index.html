@@ -272,20 +272,6 @@
     max-width:680px;
     text-align:left;
   }
-  .for-who-label{
-    text-align:center;
-    color:var(--gold);
-    font-family:'Oswald','Inter',sans-serif;
-    font-weight:600;
-    font-size:.78rem;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    margin-bottom:18px;
-    display:flex;align-items:center;justify-content:center;gap:14px;
-  }
-  .for-who-label::before,.for-who-label::after{
-    content:"";display:block;width:32px;height:1.5px;background:var(--gold);opacity:.5;
-  }
   .hero-pills{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   @media (max-width:600px){.hero-pills{grid-template-columns:1fr}}
   .pill{
@@ -392,24 +378,6 @@
   .bg-navy .section-title{color:#fff}
   .bg-navy .section-sub{color:rgba(255,255,255,.7)}
 
-  .section-eyebrow{
-    color:var(--gold);
-    font-weight:600;
-    font-size:.72rem;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    text-align:center;
-    margin-bottom:14px;
-    font-family:'Oswald','Inter',sans-serif;
-    display:flex;align-items:center;justify-content:center;gap:14px;
-  }
-  .section-eyebrow::before,.section-eyebrow::after{
-    content:"";
-    display:block;
-    width:32px;height:1.5px;
-    background:var(--gold);
-    opacity:.5;
-  }
   .section-title{
     text-align:center;
     font-family:'Oswald','Inter',sans-serif;
@@ -520,14 +488,8 @@
     font-weight:700;
     text-transform:uppercase;
     color:var(--gold-bright);
-    margin-bottom:4px;
-    letter-spacing:.01em;
-  }
-  .mentor-single .role{
-    color:var(--text-muted);font-weight:600;
-    font-size:.7rem;letter-spacing:.18em;
-    text-transform:uppercase;
     margin-bottom:16px;
+    letter-spacing:.01em;
   }
   .mentor-single p{
     color:var(--text-soft);
@@ -804,10 +766,10 @@
 </section>
 
 <!-- PRA QUEM É (movido pra fora do hero) -->
-<section class="bg-soft" style="padding:48px 0">
+<section class="bg-soft">
   <div class="container">
+    <h2 class="section-title" style="margin-bottom:44px">PRA QUEM É <span class="gold">ESSA AULA</span></h2>
     <div class="for-who">
-      <div class="for-who-label">PRA QUEM É ESSA AULA</div>
       <div class="hero-pills">
         <div class="pill">
           <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
@@ -833,14 +795,12 @@
 <!-- MENTORA (Carla) -->
 <section>
   <div class="container">
-    <div class="section-eyebrow">QUEM É A MENTORA</div>
-    <h2 class="section-title" style="margin-bottom:44px">A pessoa que vai <span class="gold">do seu lado</span></h2>
+    <h2 class="section-title" style="margin-bottom:44px">QUEM É <span class="gold">A MENTORA</span></h2>
 
     <div class="mentor-single reveal">
       <div class="mentor-photo" style="background-image:url('carla-pc.jpg')"></div>
       <div class="mentor-body">
         <h3>Carla Martins</h3>
-        <div class="role">Polícia Civil · Criadora do Método Além da Farda</div>
         <p>Eu fui professora de inglês ganhando R$ 2.000 por mês. Formada em Letras. Reprovei muito antes de entender que o problema não era eu — era o método.</p>
         <p>Depois de ajustar meu método, em menos de 2 anos, passei em vários concursos policiais, entre eles a <strong>Polícia Civil de Goiás</strong> e a <strong>Polícia Judicial do TRT 10ª Região (8º lugar)</strong>. Estudando poucas horas por dia, trabalhando como professora.</p>
         <p>Nessa aula eu não vou te motivar. Vou te mostrar o passo a passo.</p>
