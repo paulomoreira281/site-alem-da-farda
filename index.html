@@ -661,9 +661,10 @@
     .faq-item summary{padding:16px 18px;font-size:.94rem}
     .faq-answer{padding:0 18px 18px;padding-top:14px;font-size:.9rem}
 
-    .mentor-single{grid-template-columns:1fr;max-width:480px;text-align:center;padding:32px 26px;gap:20px}
-    .mentor-single .mentor-photo{margin:0 auto;width:150px;height:150px}
-    .mentor-single .mentor-body{padding:0}
+    /* Mobile: mantém layout horizontal (foto retangular à esquerda + texto à direita), só reduz proporcionalmente */
+    .mentor-single{grid-template-columns:180px 1fr;max-width:520px}
+    .mentor-single .mentor-photo{min-height:280px}
+    .mentor-single .mentor-body{padding:22px 20px}
     .mentor-single .quote{text-align:left}
   }
   @media (max-width:480px){
@@ -685,9 +686,11 @@
     .bullet-card p,.pain-card p{font-size:.88rem}
     .pain-num{font-size:1.9rem;min-width:40px}
     .pain-card h4{font-size:.95rem}
-    .mentor-single .mentor-photo{width:130px;height:130px}
-    .mentor-single h3{font-size:1.3rem}
-    .mentor-single p{font-size:.9rem}
+    .mentor-single{grid-template-columns:140px 1fr}
+    .mentor-single .mentor-photo{min-height:230px;width:auto;height:auto}
+    .mentor-single .mentor-body{padding:18px 16px}
+    .mentor-single h3{font-size:1.15rem;margin-bottom:12px}
+    .mentor-single p{font-size:.85rem}
     .cta-btn{padding:15px 22px;font-size:.82rem;width:100%;max-width:340px}
     .below-cta{font-size:12.5px}
     .final-cta h2{font-size:1.4rem}
