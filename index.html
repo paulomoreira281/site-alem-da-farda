@@ -96,13 +96,10 @@
     50%{box-shadow:0 0 0 6px rgba(255,255,255,0)}
   }
   .top-strip strong{color:#fff;font-weight:800}
-  .top-strip .ts-br{display:none}
-  @media (max-width:600px){
-    .top-strip .ts-br{display:inline;line-height:0}
-    .top-strip{line-height:1.5}
-  }
+  .top-strip .ts-br{display:inline;line-height:0}
+  .top-strip{line-height:1.7}
   @media (min-width:600px){
-    .top-strip{font-size:.82rem;padding:12px 14px;letter-spacing:.2em}
+    .top-strip{font-size:.82rem;padding:12px 14px;letter-spacing:.2em;line-height:1.7}
   }
 
   /* ============ HERO (2 colunas estilo Alfama, fundo Polícia Civil) ============ */
@@ -141,36 +138,38 @@
     opacity:.85;
     z-index:1;
   }
-  /* faixa vermelha diagonal de "FITA DE OPERAÇÃO" cruzando o fundo */
+  /* faixa vermelha diagonal de "FITA DE OPERAÇÃO" — atrás da foto apenas */
   .hero-tape{
     position:absolute;
-    top:38%;
-    left:-15%;
-    right:-15%;
-    height:46px;
+    top:32%;
+    left:-25%;
+    right:-25%;
+    height:42px;
     background:repeating-linear-gradient(135deg,
-      #b3122a 0px, #b3122a 30px,
-      #1a1a1a 30px, #1a1a1a 60px
+      #b3122a 0px, #b3122a 28px,
+      #1a1a1a 28px, #1a1a1a 56px
     );
-    transform:rotate(-6deg);
-    opacity:.18;
-    z-index:2;
-    box-shadow:0 0 60px rgba(179,18,42,.3);
+    transform:rotate(-8deg);
+    opacity:.35;
+    z-index:1;
+    box-shadow:0 0 60px rgba(179,18,42,.4);
+    pointer-events:none;
   }
-  /* segunda fita mais embaixo */
+  /* segunda fita mais embaixo, ainda dentro da coluna da foto */
   .hero-tape-2{
     position:absolute;
-    bottom:18%;
-    left:-15%;
-    right:-15%;
-    height:28px;
+    bottom:22%;
+    left:-25%;
+    right:-25%;
+    height:26px;
     background:repeating-linear-gradient(135deg,
-      #b3122a 0px, #b3122a 18px,
-      #1a1a1a 18px, #1a1a1a 36px
+      #b3122a 0px, #b3122a 16px,
+      #1a1a1a 16px, #1a1a1a 32px
     );
-    transform:rotate(-4deg);
-    opacity:.12;
-    z-index:2;
+    transform:rotate(-5deg);
+    opacity:.25;
+    z-index:1;
+    pointer-events:none;
   }
 
   .hero-grid{
@@ -185,10 +184,11 @@
     align-items:center;
   }
   .hero-copy{position:relative;z-index:4}
-  .hero-photo-col{position:relative;align-self:stretch;display:flex;align-items:flex-end;justify-content:center;min-height:520px}
+  .hero-photo-col{position:relative;align-self:stretch;display:flex;align-items:center;justify-content:center;min-height:520px;overflow:hidden}
 
   .hero-photo{
     position:relative;
+    z-index:3;
     width:100%;
     max-width:460px;
     aspect-ratio:3/4;
@@ -497,18 +497,23 @@
     border:1px solid var(--gold-line);
     border-radius:18px;
     box-shadow:0 30px 80px rgba(0,0,0,.5);
-    overflow:hidden;
     display:grid;
-    grid-template-columns:280px 1fr;
-    align-items:stretch;
+    grid-template-columns:auto 1fr;
+    align-items:center;
+    gap:32px;
+    padding:32px 36px 32px 36px;
   }
   .mentor-single .mentor-photo{
-    background:#050505 center top/cover no-repeat;
-    border-right:1px solid var(--border);
-    min-height:340px;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:#050505 center 20%/cover no-repeat;
+    border:3px solid var(--gold);
+    box-shadow:0 12px 30px rgba(0,0,0,.6), 0 0 0 6px rgba(212,168,87,.08);
+    flex-shrink:0;
   }
   .mentor-single .mentor-body{
-    padding:32px 32px;
+    padding:0;
   }
   .mentor-single h3{
     font-family:'Oswald','Inter',sans-serif;
@@ -668,13 +673,13 @@
       text-align:center;
     }
     .hero-copy{order:2}
-    .hero-photo-col{order:1;min-height:0;align-items:center}
-    /* Mobile: retangular pra mostrar rosto + colete "POLÍCIA CIVIL" */
+    .hero-photo-col{order:1;min-height:0;align-items:center;padding:20px 0}
+    /* Mobile: retangular menor, com rosto mais próximo */
     .hero-photo{
-      width:min(280px, 72vw);height:auto;aspect-ratio:3/4;
+      width:min(200px, 55vw);height:auto;aspect-ratio:3/4;
       border-radius:14px;
-      background-position:center 22%;
-      background-size:cover;
+      background-position:center 15%;
+      background-size:130% auto;
       border:2px solid var(--gold-line);
       box-shadow:0 18px 40px rgba(0,0,0,.7), 0 0 0 4px rgba(212,168,87,.05);
     }
@@ -696,16 +701,17 @@
     .faq-item summary{padding:16px 18px;font-size:.94rem}
     .faq-answer{padding:0 18px 18px;padding-top:14px;font-size:.9rem}
 
-    .mentor-single{grid-template-columns:1fr;max-width:480px}
-    .mentor-single .mentor-photo{min-height:280px;border-right:0;border-bottom:1px solid var(--border)}
-    .mentor-single .mentor-body{padding:26px 24px}
+    .mentor-single{grid-template-columns:1fr;max-width:480px;text-align:center;padding:32px 26px;gap:20px}
+    .mentor-single .mentor-photo{margin:0 auto;width:150px;height:150px}
+    .mentor-single .mentor-body{padding:0}
+    .mentor-single .quote{text-align:left}
   }
   @media (max-width:480px){
     .container{padding:0 14px}
     .badge{font-size:.6rem;padding:6px 11px;letter-spacing:.08em}
     .hero h1{font-size:1.55rem;line-height:1.08}
     .hero .lead{font-size:.92rem}
-    .hero-photo{width:min(240px, 68vw)}
+    .hero-photo{width:min(180px, 52vw)}
     .chip{font-size:.7rem;padding:6px 10px}
     .pill{font-size:.85rem;padding:11px 13px;gap:10px}
     .pill .check{width:20px;height:20px}
@@ -719,7 +725,7 @@
     .bullet-card p,.pain-card p{font-size:.88rem}
     .pain-num{font-size:1.9rem;min-width:40px}
     .pain-card h4{font-size:.95rem}
-    .mentor-single .mentor-photo{min-height:240px}
+    .mentor-single .mentor-photo{width:130px;height:130px}
     .mentor-single h3{font-size:1.3rem}
     .mentor-single p{font-size:.9rem}
     .cta-btn{padding:15px 22px;font-size:.82rem;width:100%;max-width:340px}
@@ -739,13 +745,13 @@
 
 <!-- TOP STRIP (faixa vermelha) -->
 <div class="top-strip">
-  <span class="ts-dot"></span>EXCLUSIVO PARA CONCURSO DA <strong>POLÍCIA CIVIL</strong><br class="ts-br"><strong>28/7, TERÇA, 20H</strong> · <strong>NÃO FICA GRAVADO</strong>
+  <span class="ts-dot"></span>EXCLUSIVO PARA CONCURSEIROS DA <strong>POLÍCIA CIVIL</strong>
+  <br class="ts-br">
+  <strong>28/7, TERÇA, 20H</strong> · <strong>NÃO FICA GRAVADO</strong>
 </div>
 
 <!-- HERO 2 colunas -->
 <section class="hero">
-  <div class="hero-tape"></div>
-  <div class="hero-tape-2"></div>
   <div class="hero-grid">
 
     <div class="hero-copy">
@@ -791,6 +797,8 @@
     </div>
 
     <div class="hero-photo-col">
+      <div class="hero-tape" aria-hidden="true"></div>
+      <div class="hero-tape-2" aria-hidden="true"></div>
       <div class="hero-photo" aria-label="Carla Martins"></div>
     </div>
 
@@ -831,7 +839,7 @@
     <h2 class="section-title" style="margin-bottom:44px">A pessoa que vai <span class="gold">do seu lado</span></h2>
 
     <div class="mentor-single reveal">
-      <div class="mentor-photo" style="background-image:url('carla.jpg')"></div>
+      <div class="mentor-photo" style="background-image:url('carla-pc.jpg')"></div>
       <div class="mentor-body">
         <h3>Carla Martins</h3>
         <div class="role">Polícia Civil · Criadora do Método Além da Farda</div>
