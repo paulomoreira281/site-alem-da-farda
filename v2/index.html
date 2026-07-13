@@ -196,19 +196,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     z-index:3;
     display:grid;
     grid-template-columns:1.1fr .9fr;
-    gap:40px;
+    grid-template-areas:
+      "logo logo"
+      "copy photo";
+    gap:24px 40px;
     max-width:1180px;
     margin:0 auto;
-    padding:54px 28px 54px;
+    padding:44px 28px 54px;
     align-items:center;
   }
-  .hero-copy{position:relative;z-index:4}
+  .hero-copy{position:relative;z-index:4;grid-area:copy}
+  .hero-photo-col{grid-area:photo}
   .hero-logo{
+    grid-area:logo;
+    justify-self:center;
     display:block;
-    width:100%;
-    max-width:500px;
+    width:min(520px, 90%);
     height:auto;
-    margin:0 auto 22px;
+    margin:0 auto;
     filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));
   }
   .hero-logo-mobile{display:none} /* mostrada só no mobile */
@@ -672,16 +677,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       text-align:center;
     }
     /* Mobile: logo em cima da foto, depois foto, depois resto do copy */
+    .hero-grid{grid-template-areas:"logo" "photo" "copy"}
     .hero-logo-mobile{
-      order:0;display:block !important;
+      grid-area:logo;
+      display:block !important;
       width:100%;max-width:min(380px, 82vw);height:auto;
       margin:0 auto 14px;
       filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));
     }
-    .hero-copy .hero-logo{display:none} /* esconde a logo desktop no mobile */
-    .hero-copy{order:2}
+    .hero-logo{display:none} /* esconde a logo desktop no mobile */
+    .hero-copy{grid-area:copy}
     .hero-copy .badge{margin-bottom:14px}
-    .hero-photo-col{order:1;min-height:0;align-items:center;padding:4px 0 4px;gap:12px}
+    .hero-photo-col{grid-area:photo;min-height:0;align-items:center;padding:4px 0 4px;gap:12px}
     /* Mobile: foto REDONDA — rosto + colete POLÍCIA CIVIL visíveis */
     .hero-photo{
       width:min(180px, 48vw);height:auto;aspect-ratio:1/1;
@@ -768,8 +775,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <img src="/logo-imersao-pc.png" alt="Imersão Polícia Civil 2026" class="hero-logo-mobile" width="540" height="175" aria-hidden="true" />
 
+    <img src="/logo-imersao-pc.png" alt="Imersão Polícia Civil 2026" class="hero-logo" width="540" height="175" fetchpriority="high" />
+
     <div class="hero-copy">
-      <img src="/logo-imersao-pc.png" alt="Imersão Polícia Civil 2026" class="hero-logo" width="540" height="175" fetchpriority="high" />
       <div class="badge"><span class="dot"></span> AO VIVO · NÃO FICA GRAVADO</div>
 
       <h1>
