@@ -498,26 +498,21 @@
     border:1px solid var(--gold-line);
     border-radius:18px;
     box-shadow:0 30px 80px rgba(0,0,0,.5);
+    overflow:hidden;
     display:grid;
-    grid-template-columns:auto 1fr;
-    align-items:center;
-    gap:32px;
-    padding:32px 36px 32px 36px;
+    grid-template-columns:280px 1fr;
+    align-items:stretch;
   }
   .mentor-single .mentor-photo{
-    width:180px;
-    height:180px;
-    border-radius:50%;
     background-color:#050505;
     background-repeat:no-repeat;
-    background-position:center 30%;
+    background-position:center 20%;
     background-size:cover;
-    border:3px solid var(--gold);
-    box-shadow:0 12px 30px rgba(0,0,0,.6), 0 0 0 6px rgba(212,168,87,.08);
-    flex-shrink:0;
+    border-right:1px solid var(--border);
+    min-height:340px;
   }
   .mentor-single .mentor-body{
-    padding:0;
+    padding:32px 32px;
   }
   .mentor-single h3{
     font-family:'Oswald','Inter',sans-serif;
@@ -678,11 +673,11 @@
     }
     .hero-copy{order:2}
     .hero-photo-col{order:1;min-height:0;align-items:center;padding:8px 0}
-    /* Mobile: foto REDONDA com foco no rosto */
+    /* Mobile: foto REDONDA com rosto colado no círculo */
     .hero-photo{
       width:min(150px, 40vw);height:auto;aspect-ratio:1/1;
       border-radius:50%;
-      background:url('carla-pc-face.jpg') center 30%/cover no-repeat;
+      background:url('carla-pc-face.jpg') center center/cover no-repeat;
       border:3px solid var(--gold);
       box-shadow:0 12px 26px rgba(0,0,0,.7), 0 0 0 5px rgba(212,168,87,.08);
     }
@@ -842,7 +837,7 @@
     <h2 class="section-title" style="margin-bottom:44px">A pessoa que vai <span class="gold">do seu lado</span></h2>
 
     <div class="mentor-single reveal">
-      <div class="mentor-photo" style="background-image:url('carla-pc-face.jpg')"></div>
+      <div class="mentor-photo" style="background-image:url('carla-pc.jpg')"></div>
       <div class="mentor-body">
         <h3>Carla Martins</h3>
         <div class="role">Polícia Civil · Criadora do Método Além da Farda</div>
