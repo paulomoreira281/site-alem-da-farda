@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Você está dentro — Te vejo terça às 20h | Carla Martins</title>
+<meta name="description" content="Inscrição confirmada. Redirecionando pro grupo do WhatsApp..." />
+<meta http-equiv="refresh" content="6;url=https://chat.whatsapp.com/HT6sLoiHLq0DE6wUP6LtZG" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#050505;
+    --bg-card:#111110;
+    --text:#f5f1ea;
+    --text-soft:#cfcabf;
+    --text-muted:#9a948b;
+    --gold:#d4a857;
+    --gold-bright:#e8c074;
+    --gold-soft:rgba(212,168,87,.14);
+    --gold-line:rgba(212,168,87,.4);
+    --red:#b3122a;
+    --red-bright:#ff3a55;
+    --green:#13a87a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:0}
+
+  /* TOP STRIP vermelha */
+  .top-strip{
+    background:linear-gradient(180deg,#b3122a 0%, #7a0a1c 100%);
+    color:#fff;
+    text-align:center;
+    padding:11px 14px;
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.18em;
+    line-height:1.4;
+    font-family:'Oswald','Inter',sans-serif;
+    text-transform:uppercase;
+    border-bottom:1px solid rgba(0,0,0,.4);
+    box-shadow:inset 0 -1px 0 rgba(0,0,0,.3);
+  }
+  .top-strip .dot{
+    display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;
+    margin-right:10px;animation:pulseWhite 1.6s ease-in-out infinite;vertical-align:middle;
+  }
+  @keyframes pulseWhite{
+    0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.5)}
+    50%{box-shadow:0 0 0 6px rgba(255,255,255,0)}
+  }
+
+  /* WRAPPER com mesmo fundo PC do hero */
+  .wrap{
+    position:relative;
+    min-height:calc(100vh - 42px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px 18px;
+    overflow:hidden;
+  }
+  .wrap::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.95) 100%),
+      radial-gradient(circle at 78% 25%, rgba(255,30,55,.22) 0%, transparent 38%),
+      radial-gradient(circle at 22% 75%, rgba(179,18,42,.18) 0%, transparent 40%),
+      linear-gradient(180deg,#080605 0%, #020202 100%);
+    z-index:0;
+  }
+  .wrap::after{
+    content:"";
+    position:absolute;inset:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600' preserveAspectRatio='xMidYMax slice'><g fill='%23ffffff' opacity='0.05'><text x='50%25' y='52%25' text-anchor='middle' font-family='Arial Black' font-size='78' letter-spacing='14' font-weight='900'>POLÍCIA CIVIL</text><text x='50%25' y='60%25' text-anchor='middle' font-family='Arial' font-size='14' letter-spacing='22'>OPERAÇÃO · INVESTIGAÇÃO · APROVAÇÃO</text></g><g fill='%23000' opacity='0.7'><path d='M100 600 V395 q0-55 45-55 h35 q45 0 45 55 V600 Z'/><path d='M138 335 a28 28 0 1 1 0.1 0 Z'/><path d='M230 600 V380 q0-58 48-58 h38 q48 0 48 58 V600 Z'/><path d='M272 320 a32 32 0 1 1 0.1 0 Z'/><path d='M380 600 V370 q0-62 52-62 h42 q52 0 52 62 V600 Z'/><path d='M425 305 a36 36 0 1 1 0.1 0 Z'/><path d='M880 600 V388 q0-52 44-52 h34 q44 0 44 52 V600 Z'/><path d='M920 332 a29 29 0 1 1 0.1 0 Z'/><path d='M1030 600 V392 q0-50 42-50 h32 q42 0 42 50 V600 Z'/><path d='M1065 338 a27 27 0 1 1 0.1 0 Z'/></g></svg>");
+    background-position:center bottom;
+    background-size:cover;
+    background-repeat:no-repeat;
+    filter:blur(2.5px) brightness(.55) contrast(1.1);
+    opacity:.8;
+    z-index:1;
+  }
+  .tape{
+    position:absolute;top:38%;left:-15%;right:-15%;height:46px;
+    background:repeating-linear-gradient(135deg,#b3122a 0px, #b3122a 30px,#1a1a1a 30px, #1a1a1a 60px);
+    transform:rotate(-6deg);opacity:.18;z-index:2;box-shadow:0 0 60px rgba(179,18,42,.3);
+  }
+
+  /* CARD CENTRAL */
+  .card{
+    position:relative;z-index:3;
+    max-width:560px;width:100%;
+    background:rgba(10,10,10,.85);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border:1px solid var(--gold-line);
+    border-radius:16px;
+    padding:36px 32px;
+    text-align:center;
+    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 60px rgba(212,168,87,.08);
+  }
+
+  .check-circle{
+    width:72px;height:72px;border-radius:50%;
+    background:linear-gradient(180deg,#20c997 0%,#13a87a 100%);
+    display:grid;place-items:center;
+    margin:0 auto 22px;
+    box-shadow:0 12px 30px rgba(19,168,122,.45);
+    animation:popIn .5s ease-out;
+  }
+  .check-circle svg{width:36px;height:36px;color:#fff}
+  @keyframes popIn{
+    0%{transform:scale(0);opacity:0}
+    60%{transform:scale(1.15)}
+    100%{transform:scale(1);opacity:1}
+  }
+
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(179,18,42,.18);
+    border:1px solid rgba(179,18,42,.55);
+    color:#ff8a98;
+    font-weight:800;font-size:.68rem;letter-spacing:.14em;
+    padding:7px 13px;border-radius:6px;text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .badge .dot{
+    width:7px;height:7px;border-radius:50%;background:#ff3a55;
+    animation:pulseRed 1.6s ease-in-out infinite;
+  }
+  @keyframes pulseRed{
+    0%,100%{box-shadow:0 0 0 0 rgba(255,58,85,.5)}
+    50%{box-shadow:0 0 0 7px rgba(255,58,85,0)}
+  }
+
+  h1{
+    font-family:'Oswald','Inter',sans-serif;
+    font-weight:700;
+    font-size:clamp(1.8rem, 4vw, 2.4rem);
+    line-height:1.1;
+    letter-spacing:.005em;
+    text-transform:uppercase;
+    color:#fff;
+    margin-bottom:14px;
+  }
+  h1 .gold{color:var(--gold-bright)}
+  h1 .red{color:#ff3a55}
+
+  .lead{
+    color:var(--text-soft);
+    font-size:1rem;
+    line-height:1.6;
+    margin-bottom:24px;
+  }
+  .lead strong{color:#fff;font-weight:700}
+
+  .info-box{
+    background:#000;
+    border:1px solid var(--gold-line);
+    border-radius:10px;
+    padding:14px 18px;
+    margin-bottom:24px;
+    font-family:'Oswald','Inter',sans-serif;
+    font-size:.85rem;font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#f5f1ea;
+  }
+  .info-box b{color:var(--gold-bright);font-weight:700}
+
+  /* COUNTDOWN */
+  .countdown{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin-bottom:22px;
+    color:var(--text-muted);
+    font-size:.92rem;
+  }
+  .countdown .num{
+    display:inline-grid;place-items:center;
+    width:38px;height:38px;
+    background:var(--gold);
+    color:#1a1408;
+    border-radius:8px;
+    font-family:'Oswald','Inter',sans-serif;
+    font-weight:800;font-size:1.3rem;
+    box-shadow:0 6px 14px rgba(212,168,87,.3);
+  }
+
+  .cta-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    width:100%;
+    background:linear-gradient(180deg, #20c997 0%, #13a87a 60%, #0e8a63 100%);
+    color:#fff;
+    font-family:'Oswald','Inter',sans-serif;
+    font-weight:700;
+    font-size:1rem;letter-spacing:.1em;
+    padding:16px 22px;border-radius:8px;
+    text-transform:uppercase;
+    text-shadow:0 1px 0 rgba(0,0,0,.2);
+    box-shadow:0 8px 20px rgba(19,168,122,.4), inset 0 1px 0 rgba(255,255,255,.25);
+    transition:transform .1s ease, box-shadow .2s;
+    margin-bottom:18px;
+  }
+  .cta-btn:hover{transform:translateY(-1px);box-shadow:0 12px 28px rgba(19,168,122,.55)}
+  .cta-btn svg{width:22px;height:22px}
+
+  .small{
+    color:var(--text-muted);
+    font-size:.82rem;
+    line-height:1.5;
+    margin-top:6px;
+  }
+  .small a{color:var(--gold-bright);text-decoration:underline}
+
+  @media (max-width:520px){
+    .card{padding:30px 22px}
+    h1{font-size:1.55rem}
+    .lead{font-size:.94rem}
+    .info-box{font-size:.75rem;padding:12px 14px;letter-spacing:.08em}
+    .cta-btn{font-size:.88rem;padding:15px 18px}
+    .check-circle{width:62px;height:62px;margin-bottom:18px}
+    .check-circle svg{width:30px;height:30px}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP STRIP -->
+<div class="top-strip">
+  <span class="dot"></span>VAGA CONFIRMADA · TERÇA, 20H · NÃO FICA GRAVADO
+</div>
+
+<div class="wrap">
+  <div class="tape"></div>
+
+  <div class="card">
+
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <div class="badge"><span class="dot"></span> VOCÊ ESTÁ DENTRO</div>
+
+    <h1>
+      Sua vaga tá <span class="red">garantida.</span><br/>
+      <span class="gold">Te vejo terça, 20h.</span>
+    </h1>
+
+    <p class="lead">
+      Agora <strong>último passo</strong>: entra no grupo do WhatsApp pra receber o link do Zoom, lembretes e o tema da semana. Quem não tá no grupo, <strong>não recebe o link da live</strong>.
+    </p>
+
+    <div class="info-box">
+      ⚠ TERÇA · 20H · ZOOM · <b>NÃO FICA GRAVADO</b>
+    </div>
+
+    <div class="countdown">
+      <span>Redirecionando em</span>
+      <span class="num" id="counter">5</span>
+      <span>segundos</span>
+    </div>
+
+    <a href="https://chat.whatsapp.com/HT6sLoiHLq0DE6wUP6LtZG" class="cta-btn" id="wa-link" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      ENTRAR NO GRUPO DO WHATSAPP
+    </a>
+
+    <p class="small">
+      Se não redirecionar automaticamente, <a href="https://chat.whatsapp.com/HT6sLoiHLq0DE6wUP6LtZG">clica aqui</a>.
+    </p>
+
+  </div>
+</div>
+
+<script>
+  // Countdown + redirect
+  var sec = 5;
+  var el = document.getElementById('counter');
+  var WHATSAPP_URL = 'https://chat.whatsapp.com/HT6sLoiHLq0DE6wUP6LtZG';
+
+  var tick = setInterval(function(){
+    sec -= 1;
+    if(el) el.textContent = sec;
+    if(sec <= 0){
+      clearInterval(tick);
+      window.location.href = WHATSAPP_URL;
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
