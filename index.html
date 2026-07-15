@@ -3,34 +3,35 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TS75D55L');</script>
-<!-- End Google Tag Manager -->
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "xbhpu99jqk");
-</script>
-<!-- End Microsoft Clarity -->
 <title>Aula ao vivo — 28 de julho, terça-feira às 20h, sem gravação | Carla Martins</title>
 <meta name="description" content="Aula ao vivo, gratuita, no Google Meet — 28 de julho, terça-feira às 20h. A Carla Martins abre o método que a aprovou em vários concursos policiais, entre eles PC-GO e Polícia Judicial do TRT (8º lugar). NÃO fica gravado: quem não estiver online perde." />
 <meta name="theme-color" content="#050505" />
 <meta property="og:title" content="Aula ao vivo com Carla Martins — 28/07, terça às 20h, sem gravação" />
 <meta property="og:description" content="Aula ao vivo no Google Meet. NÃO fica gravado. Vaga limitada." />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- Preconnect + preload — feito antes de GTM/Clarity pra não bloquear render inicial -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="carla-pc.jpg" fetchpriority="high" media="(min-width: 981px)">
-<link rel="preload" as="image" href="carla-pc-face.jpg?v=4243" fetchpriority="high" media="(max-width: 980px)">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://www.clarity.ms">
+<link rel="preload" as="image" href="/logo-imersao-pc.png?v=3" fetchpriority="high">
+<link rel="preload" as="image" href="/carla-pc.jpg" fetchpriority="high" media="(min-width: 981px)">
+<link rel="preload" as="image" href="/carla-pc-face.jpg?v=4243" fetchpriority="high" media="(max-width: 980px)">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet"></noscript>
+
+<!-- Google Tag Manager — carregado com defer (não bloqueia render inicial) -->
+<script>window.addEventListener('load',function(){(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TS75D55L');});</script>
+<!-- Microsoft Clarity — carregado com defer -->
+<script>window.addEventListener('load',function(){(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "xbhpu99jqk");});</script>
 
 <style>
   :root{
@@ -196,13 +197,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     z-index:3;
     display:grid;
     grid-template-columns:1.1fr .9fr;
-    gap:40px;
+    grid-template-areas:
+      "logo logo"
+      "copy photo";
+    gap:0 40px;
     max-width:1180px;
     margin:0 auto;
-    padding:54px 28px 54px;
+    padding:0 28px 54px;
     align-items:center;
   }
-  .hero-copy{position:relative;z-index:4}
+  .hero-copy{position:relative;z-index:4;grid-area:copy}
+  .hero-photo-col{grid-area:photo}
+  .hero-logo{
+    grid-area:logo;
+    justify-self:center;
+    display:block;
+    width:min(300px, 40%);
+    height:auto;
+    margin:0 auto;
+    filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));
+  }
+  .hero-logo-mobile{display:none} /* mostrada só no mobile */
   .hero-photo-col{position:relative;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:520px;overflow:hidden}
   .hero-photo-col .hero-chips{margin-bottom:0;position:relative;z-index:3}
 
@@ -212,7 +227,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     width:100%;
     max-width:460px;
     aspect-ratio:3/4;
-    background:url('carla-pc.jpg') center 20%/cover no-repeat;
+    background:url('/carla-pc.jpg') center 20%/cover no-repeat;
     border-radius:12px;
     box-shadow:0 30px 80px rgba(0,0,0,.7);
   }
@@ -662,14 +677,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       padding:24px 18px 36px;
       text-align:center;
     }
-    .hero-copy{order:2}
+    /* Mobile: logo em cima da foto, depois foto, depois resto do copy */
+    .hero-grid{grid-template-areas:"logo" "photo" "copy"}
+    .hero-logo-mobile{
+      grid-area:logo;
+      display:block !important;
+      width:100%;max-width:min(200px, 52vw);height:auto;
+      margin:0 auto 6px;
+      filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));
+    }
+    .hero-logo{display:none} /* esconde a logo desktop no mobile */
+    .hero-copy{grid-area:copy}
     .hero-copy .badge{margin-bottom:14px}
-    .hero-photo-col{order:1;min-height:0;align-items:center;padding:8px 0 4px;gap:12px}
+    .hero-photo-col{grid-area:photo;min-height:0;align-items:center;padding:4px 0 4px;gap:12px}
     /* Mobile: foto REDONDA — rosto + colete POLÍCIA CIVIL visíveis */
     .hero-photo{
       width:min(180px, 48vw);height:auto;aspect-ratio:1/1;
       border-radius:50%;
-      background:url('carla-pc-face.jpg?v=4243') center 30%/cover no-repeat;
+      background:url('/carla-pc-face.jpg?v=4243') center 30%/cover no-repeat;
       border:3px solid var(--gold);
       box-shadow:0 16px 32px rgba(0,0,0,.75), 0 0 0 6px rgba(212,168,87,.08);
     }
@@ -745,16 +770,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<!-- TOP STRIP (faixa vermelha) -->
-<div class="top-strip">
-  <span class="ts-dot"></span>EXCLUSIVO PARA CONCURSO DA <strong>POLÍCIA CIVIL</strong>
-  <br class="ts-br">
-  <strong>28/7, TERÇA, 20H</strong> · <strong>NÃO FICA GRAVADO</strong>
-</div>
-
 <!-- HERO 2 colunas -->
 <section class="hero">
   <div class="hero-grid">
+
+    <img src="/logo-imersao-pc.png?v=3" alt="Imersão Polícia Civil 2026" class="hero-logo-mobile" width="818" height="322" fetchpriority="high" decoding="sync" aria-hidden="true" />
+
+    <img src="/logo-imersao-pc.png?v=3" alt="Imersão Polícia Civil 2026" class="hero-logo" width="818" height="322" fetchpriority="high" decoding="sync" />
 
     <div class="hero-copy">
       <div class="badge"><span class="dot"></span> AO VIVO · NÃO FICA GRAVADO</div>
@@ -850,7 +872,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="section-title" style="margin-bottom:44px">QUEM É <span class="gold">A MENTORA</span></h2>
 
     <div class="mentor-single reveal">
-      <div class="mentor-photo" style="background-image:url('carla-pc.jpg')"></div>
+      <div class="mentor-photo" style="background-image:url('/carla-pc.jpg')"></div>
       <div class="mentor-body">
         <h3>Carla Martins</h3>
         <p>Eu fui professora de inglês ganhando R$ 2.000 por mês. Formada em Letras. Reprovei muito antes de entender que o problema não era eu — era o método.</p>
