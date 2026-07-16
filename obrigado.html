@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Microsoft Clarity -->
 <title>Você está dentro — Te vejo terça às 20h | Carla Martins</title>
 <meta name="description" content="Inscrição confirmada. Redirecionando pro grupo do WhatsApp..." />
-<meta http-equiv="refresh" content="3;url=https://chat.whatsapp.com/FtRSwvZFqc8FD1q3h1FSgX" />
+<meta http-equiv="refresh" content="1;url=https://chat.whatsapp.com/FtRSwvZFqc8FD1q3h1FSgX" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -292,7 +292,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="countdown">
-      <span>Redirecionamento em <b id="counter">2,5</b> segundos</span>
+      <span>Redirecionando pro grupo em <b id="counter">1</b>...</span>
     </div>
 
     <a href="https://chat.whatsapp.com/FtRSwvZFqc8FD1q3h1FSgX" class="cta-btn" id="wa-link" rel="noopener">
@@ -320,19 +320,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
   } catch(_){}
 
-  // Countdown de 2,5s pro grupo do WhatsApp
+  // Redirect quase imediato pro grupo do WhatsApp (900ms)
   var WHATSAPP_URL = 'https://chat.whatsapp.com/FtRSwvZFqc8FD1q3h1FSgX';
-  var el = document.getElementById('counter');
-  var restante = 2.5;
-
-  var tick = setInterval(function(){
-    restante -= 0.5;
-    if(el) el.textContent = restante > 0 ? restante.toString().replace('.', ',') : '0';
-    if(restante <= 0){
-      clearInterval(tick);
-      window.location.href = WHATSAPP_URL;
-    }
-  }, 500);
+  setTimeout(function(){
+    window.location.href = WHATSAPP_URL;
+  }, 900);
 </script>
 
 </body>
