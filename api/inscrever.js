@@ -20,6 +20,8 @@
  * raw_utms, webhook_status.
  */
 
+const { createAndSendFlow, extractPrimeiroNome } = require('./_lib/manychat');
+
 const MAKE_WEBHOOK_DEFAULT = 'https://hook.us1.make.com/hfk04fx9otssnvr46ltwp2uxrtrw9hp3';
 
 // utilitários
@@ -90,8 +92,8 @@ async function postSupabase(payload) {
   return data?.[0]?.id || null;
 }
 
-async function patchWebhookStatus(id, status) {
-  if (!id || !status) return;
+async function patchLead(id, patch) {
+  if (!id || !patch || !Object.keys(patch).length) return;
   const SUPABASE_URL = process.env.SUPABASE_URL;
   const SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE_KEY;
   try {
@@ -102,10 +104,10 @@ async function patchWebhookStatus(id, status) {
         Authorization: `Bearer ${SERVICE_ROLE}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ webhook_status: status }),
+      body: JSON.stringify(patch),
     });
   } catch (e) {
-    console.warn('[inscrever] patch webhook_status falhou', e.message);
+    console.warn('[inscrever] patchLead falhou', e.message);
   }
 }
 
@@ -162,9 +164,12 @@ module.exports = async (req, res) => {
     } catch (_) {}
   }
 
+  const primeiro_nome = extractPrimeiroNome(nome);
+
   // payload pro Supabase (tudo que couber)
   const supabasePayload = {
     nome,
+    primeiro_nome,
     whatsapp,
     origem,
     ip,
@@ -187,6 +192,8 @@ module.exports = async (req, res) => {
     last_touch,
     raw_utms,
     webhook_status: null,
+    manychat_status: null,
+    manychat_subscriber_id: null,
   };
 
   // payload MÍNIMO pro Make → Google Sheets (9 campos, string vazia em vez de null)
@@ -202,14 +209,16 @@ module.exports = async (req, res) => {
     referrer:     supabasePayload.referrer     || '',
   };
 
-  // dispara ambos em paralelo — container Vercel espera os dois via allSettled
-  const [supResult, makeResult] = await Promise.allSettled([
+  // dispara os 3 em paralelo — container Vercel espera todos via allSettled
+  const [supResult, makeResult, mcResult] = await Promise.allSettled([
     postSupabase(supabasePayload),
     postMake(makePayload),
+    createAndSendFlow({ nome, whatsapp }),
   ]);
 
   const id = supResult.status === 'fulfilled' ? supResult.value : null;
   const webhookStatus = makeResult.status === 'fulfilled' ? makeResult.value : 'failed_promise';
+  const manychat = mcResult.status === 'fulfilled' ? mcResult.value : { status: 'failed_promise', subscriber_id: null };
 
   if (supResult.status === 'rejected') {
     console.error('[inscrever] supabase falhou', supResult.reason?.message);
@@ -217,14 +226,24 @@ module.exports = async (req, res) => {
   if (makeResult.status === 'rejected') {
     console.error('[inscrever] make falhou', makeResult.reason?.message);
   }
+  if (mcResult.status === 'rejected') {
+    console.error('[inscrever] manychat falhou', mcResult.reason?.message);
+  }
 
-  // patch webhook_status no Supabase (fire-and-forget agora, resposta já vai sair)
-  if (id) patchWebhookStatus(id, webhookStatus);
+  // patch de status no Supabase (fire-and-forget agora, resposta já vai sair)
+  if (id) {
+    patchLead(id, {
+      webhook_status: webhookStatus,
+      manychat_status: manychat.status,
+      manychat_subscriber_id: manychat.subscriber_id,
+    });
+  }
 
   return res.status(200).json({
     ok: true,
     saved: !!id,
     id,
     webhook: webhookStatus,
+    manychat: manychat.status,
   });
 };
