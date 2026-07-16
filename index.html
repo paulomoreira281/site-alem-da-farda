@@ -981,6 +981,72 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     this.value = v;
   });
 
+  // ===== TRACKING (first-touch com cookie de 30 dias) =====
+  const TRACKING_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term',
+                         'fbclid','gclid','ttclid','msclkid','wbraid','gbraid'];
+  const COOKIE_FT = 'cm_ft';
+
+  function _getCookie(name){
+    const raw = document.cookie.split('; ').find(r => r.startsWith(name+'='));
+    return raw ? raw.slice(name.length+1) : null;
+  }
+  function _setCookie(name, val, days){
+    const d = new Date(); d.setTime(d.getTime() + days*864e5);
+    document.cookie = name+'='+encodeURIComponent(val)+';expires='+d.toUTCString()+';path=/;SameSite=Lax';
+  }
+  function _readUrlTracking(){
+    const p = new URLSearchParams(location.search);
+    const out = {};
+    TRACKING_KEYS.forEach(k => { const v = p.get(k); if(v) out[k] = v; });
+    for(const [k,v] of p){ if(k.startsWith('utm_') && !out[k]) out[k] = v; }
+    return out;
+  }
+
+  // Se chegou com UTM E ainda não tem cookie de first-touch → congela
+  (function persistFirstTouch(){
+    try {
+      const fromUrl = _readUrlTracking();
+      if(Object.keys(fromUrl).length && !_getCookie(COOKIE_FT)){
+        _setCookie(COOKIE_FT, JSON.stringify({
+          ...fromUrl,
+          landing_url: location.href,
+          referrer: document.referrer || null,
+          captured_at: new Date().toISOString(),
+        }), 30);
+      }
+    } catch(_) {}
+  })();
+
+  function getTrackingSnapshot(){
+    const nowUrl = _readUrlTracking();
+    let firstTouch = {};
+    try {
+      const raw = _getCookie(COOKIE_FT);
+      if(raw) firstTouch = JSON.parse(decodeURIComponent(raw));
+    } catch(_) {}
+
+    // FIRST-TOUCH como principal — se tem cookie, ele domina os utm_*
+    // Se não tem (lead direto ou 1ª visita orgânica), usa a URL atual
+    const primary = Object.keys(firstTouch).length ? firstTouch : nowUrl;
+
+    return {
+      utm_source:   primary.utm_source   || null,
+      utm_medium:   primary.utm_medium   || null,
+      utm_campaign: primary.utm_campaign || null,
+      utm_content:  primary.utm_content  || null,
+      utm_term:     primary.utm_term     || null,
+      fbclid:       primary.fbclid       || null,
+      gclid:        primary.gclid        || null,
+      ttclid:       primary.ttclid       || null,
+      msclkid:      primary.msclkid      || null,
+      landing_url:  location.href,
+      referrer:     document.referrer || null,
+      last_touch:   nowUrl,
+      raw_utms:     { first_touch: firstTouch, submit_url: location.search },
+    };
+  }
+  // ===== /TRACKING =====
+
   document.getElementById('liveForm').addEventListener('submit', async function(e){
     e.preventDefault();
     const nome = document.getElementById('nome').value.trim();
@@ -994,11 +1060,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     btn.textContent = 'RESERVANDO SUA VAGA...';
     btn.disabled = true;
 
+    const tracking = getTrackingSnapshot();
+
     try {
       const resp = await fetch('/api/inscrever', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, whatsapp: wppV, origem: 'live-28-julho' }),
+        body: JSON.stringify({
+          nome,
+          whatsapp: wppV,
+          origem: 'live-28-julho',
+          ...tracking,
+        }),
       });
       const data = await resp.json().catch(() => ({}));
 

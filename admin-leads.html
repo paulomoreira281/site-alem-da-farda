@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Admin · Leads Live Carla</title>
+<style>
+  :root{
+    --bg:#050505; --bg-soft:#0c0c0c; --bg-card:#111110; --bg-card-2:#161513;
+    --text:#f5f1ea; --text-soft:#cfcabf; --text-muted:#9a948b;
+    --border:rgba(245,241,234,.10); --border-2:rgba(245,241,234,.18);
+    --gold:#d4a857; --gold-bright:#e8c074; --gold-soft:rgba(212,168,87,.14); --gold-line:rgba(212,168,87,.4);
+    --green:#25d366; --red:#e56b6b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+  html,body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
+  a{color:var(--gold-bright);text-decoration:none}
+  button{cursor:pointer;font:inherit;border:0;background:none;color:inherit}
+  input,select,textarea{font:inherit;background:var(--bg-card-2);color:var(--text);border:1px solid var(--border-2);border-radius:6px;padding:8px 10px;outline:none}
+  input:focus,select:focus{border-color:var(--gold-line)}
+
+  /* Login screen */
+  .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .login-card{background:var(--bg-card);border:1px solid var(--gold-line);border-radius:12px;padding:40px;max-width:420px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .login-card h1{font-size:20px;margin-bottom:6px;color:var(--gold-bright)}
+  .login-card p{color:var(--text-muted);margin-bottom:24px}
+  .login-card input{width:100%;font-size:15px;padding:12px 14px;margin-bottom:12px}
+  .login-card button{width:100%;background:var(--gold);color:#1a1408;padding:12px;border-radius:8px;font-weight:700;font-size:14px;letter-spacing:.05em;text-transform:uppercase}
+  .login-card button:hover{background:var(--gold-bright)}
+  .login-err{color:var(--red);font-size:13px;margin-top:8px;text-align:center}
+
+  /* Main */
+  .container{max-width:1400px;margin:0 auto;padding:20px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:20px}
+  .topbar h1{font-size:18px;color:var(--gold-bright);letter-spacing:.01em}
+  .topbar h1 span{color:var(--text-muted);font-weight:400;margin-left:8px}
+  .btn-logout{color:var(--text-muted);font-size:13px;padding:6px 12px;border:1px solid var(--border-2);border-radius:6px}
+  .btn-logout:hover{color:var(--text);border-color:var(--gold-line)}
+
+  /* KPIs */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+  .kpi{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+  .kpi-label{color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+  .kpi-value{font-size:24px;font-weight:700;color:var(--gold-bright)}
+  .kpi-sub{color:var(--text-muted);font-size:11px;margin-top:4px}
+
+  /* Filters */
+  .filters{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+  .filter-field{display:flex;flex-direction:column;gap:4px;min-width:130px}
+  .filter-field label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em}
+  .filter-field input,.filter-field select{padding:7px 9px;font-size:13px}
+  .btn-apply{background:var(--gold);color:#1a1408;padding:8px 16px;border-radius:6px;font-weight:700;font-size:13px}
+  .btn-apply:hover{background:var(--gold-bright)}
+  .btn-clear{color:var(--text-muted);padding:8px 12px;border:1px solid var(--border-2);border-radius:6px;font-size:13px}
+  .btn-clear:hover{color:var(--text)}
+  .btn-export{margin-left:auto;background:var(--bg-card-2);color:var(--text);padding:8px 14px;border:1px solid var(--gold-line);border-radius:6px;font-size:13px}
+  .btn-export:hover{background:var(--gold-soft)}
+
+  /* Table */
+  .table-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+  .table-scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:var(--bg-card-2);text-align:left;padding:12px 10px;font-weight:600;color:var(--text-muted);text-transform:uppercase;font-size:11px;letter-spacing:.08em;border-bottom:1px solid var(--border-2);white-space:nowrap}
+  td{padding:10px;border-bottom:1px solid var(--border);vertical-align:top}
+  tr:hover td{background:rgba(212,168,87,.03)}
+  tr.detail-row td{background:var(--bg-card-2);padding:14px 18px}
+  tr.detail-row pre{color:var(--text-soft);font-size:11px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;word-break:break-all}
+  .td-nome{font-weight:600;color:var(--text);white-space:nowrap}
+  .td-wpp{white-space:nowrap;font-family:'SF Mono',Monaco,Menlo,monospace;font-size:12px}
+  .td-utm{color:var(--gold-bright);font-size:12px;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+  .td-data{color:var(--text-muted);font-size:12px;white-space:nowrap}
+  .td-referrer{color:var(--text-muted);font-size:11px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .badge-utm{display:inline-block;background:var(--gold-soft);color:var(--gold-bright);padding:2px 6px;border-radius:4px;font-size:11px;font-weight:600}
+  .badge-none{color:var(--text-muted);font-style:italic;font-size:11px}
+  .badge-device{display:inline-block;font-size:11px;color:var(--text-muted)}
+  .btn-copy,.btn-open,.btn-detail{background:var(--bg-card-2);color:var(--text-soft);padding:4px 8px;border:1px solid var(--border);border-radius:4px;font-size:11px;margin-right:4px}
+  .btn-copy:hover,.btn-open:hover,.btn-detail:hover{color:var(--gold-bright);border-color:var(--gold-line)}
+  .btn-open{color:var(--green);border-color:rgba(37,211,102,.3)}
+  .btn-open:hover{color:var(--green);background:rgba(37,211,102,.1)}
+
+  /* Pagination */
+  .pagination{padding:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;background:var(--bg-card-2);border-top:1px solid var(--border)}
+  .page-info{color:var(--text-muted);font-size:13px}
+  .page-nav{display:flex;gap:4px}
+  .page-nav button{padding:6px 10px;border:1px solid var(--border-2);border-radius:4px;color:var(--text-soft);font-size:13px;min-width:32px}
+  .page-nav button:hover:not(:disabled){border-color:var(--gold-line);color:var(--gold-bright)}
+  .page-nav button.active{background:var(--gold-soft);border-color:var(--gold-line);color:var(--gold-bright);font-weight:600}
+  .page-nav button:disabled{opacity:.4;cursor:not-allowed}
+  .page-size{display:flex;align-items:center;gap:6px;color:var(--text-muted);font-size:13px}
+  .page-size select{padding:5px 8px;font-size:12px}
+
+  .loading{text-align:center;padding:40px;color:var(--text-muted)}
+  .empty{text-align:center;padding:40px;color:var(--text-muted)}
+  .toast{position:fixed;bottom:20px;right:20px;background:var(--gold);color:#1a1408;padding:10px 16px;border-radius:6px;font-weight:600;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .3s;pointer-events:none;z-index:1000}
+  .toast.show{opacity:1}
+
+  @media(max-width:640px){
+    .container{padding:10px}
+    .filters{padding:10px}
+    .filter-field{min-width:calc(50% - 5px)}
+    th,td{padding:8px 6px;font-size:12px}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="login-wrap" style="display:none">
+  <div class="login-card">
+    <h1>Admin · Leads</h1>
+    <p>Cole seu token de administrador pra ver os leads.</p>
+    <input id="tokenInput" type="password" placeholder="ADMIN_TOKEN" autocomplete="off" />
+    <button id="btnLogin">Entrar</button>
+    <div id="loginErr" class="login-err" style="display:none"></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="mainScreen" style="display:none">
+  <div class="container">
+    <div class="topbar">
+      <h1>Admin · Leads <span id="totalHeader"></span></h1>
+      <button class="btn-logout" id="btnLogout">Sair</button>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpis" id="kpis">
+      <div class="kpi"><div class="kpi-label">Total no período</div><div class="kpi-value" id="kpiPeriodo">–</div></div>
+      <div class="kpi"><div class="kpi-label">Hoje</div><div class="kpi-value" id="kpiHoje">–</div></div>
+      <div class="kpi"><div class="kpi-label">Últimos 7 dias</div><div class="kpi-value" id="kpi7d">–</div></div>
+      <div class="kpi"><div class="kpi-label">Top source</div><div class="kpi-value" id="kpiTop">–</div><div class="kpi-sub" id="kpiTopSub"></div></div>
+      <div class="kpi"><div class="kpi-label">Sem UTM</div><div class="kpi-value" id="kpiSemUtm">–</div><div class="kpi-sub" id="kpiSemUtmSub"></div></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-field">
+        <label>Data de</label>
+        <input type="date" id="fFrom" />
+      </div>
+      <div class="filter-field">
+        <label>Data até</label>
+        <input type="date" id="fTo" />
+      </div>
+      <div class="filter-field">
+        <label>UTM source</label>
+        <select id="fSource"><option value="">(todos)</option></select>
+      </div>
+      <div class="filter-field">
+        <label>UTM campaign</label>
+        <select id="fCampaign"><option value="">(todos)</option></select>
+      </div>
+      <div class="filter-field">
+        <label>Busca (nome/wpp)</label>
+        <input type="text" id="fSearch" placeholder="ex: maria ou 61999..." />
+      </div>
+      <div class="filter-field">
+        <label>Origem</label>
+        <select id="fOrigem"><option value="">(todos)</option></select>
+      </div>
+      <button class="btn-apply" id="btnApply">Aplicar</button>
+      <button class="btn-clear" id="btnClear">Limpar</button>
+      <button class="btn-export" id="btnExport">↓ Exportar CSV</button>
+    </div>
+
+    <!-- Tabela -->
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Nome</th>
+              <th>WhatsApp</th>
+              <th>Ações</th>
+              <th>UTM source</th>
+              <th>UTM medium</th>
+              <th>UTM campaign</th>
+              <th>UTM content</th>
+              <th>Device</th>
+              <th>Referrer</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <div class="page-info" id="pageInfo">–</div>
+        <div class="page-nav" id="pageNav"></div>
+        <div class="page-size">
+          Por página:
+          <select id="pageSize">
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+(function(){
+  const TOKEN_KEY = 'adf_admin_token';
+  let currentPage = 1;
+  let currentTotal = 0;
+
+  const $ = (id) => document.getElementById(id);
+
+  function getToken(){ return localStorage.getItem(TOKEN_KEY) || ''; }
+  function setToken(t){ localStorage.setItem(TOKEN_KEY, t); }
+  function clearToken(){ localStorage.removeItem(TOKEN_KEY); }
+
+  function showToast(msg, ms){
+    const t = $('toast'); t.textContent = msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), ms || 1800);
+  }
+
+  function fmtDate(iso){
+    if(!iso) return '';
+    const d = new Date(iso);
+    const dd = String(d.getDate()).padStart(2,'0');
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const HH = String(d.getHours()).padStart(2,'0');
+    const MM = String(d.getMinutes()).padStart(2,'0');
+    return dd+'/'+mm+' '+HH+':'+MM;
+  }
+  function fmtWpp(w){
+    if(!w) return '';
+    const d = String(w).replace(/\D/g,'');
+    if(d.length === 11) return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);
+    if(d.length === 10) return '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6);
+    return d;
+  }
+  function wppLink(w){
+    const d = String(w||'').replace(/\D/g,'');
+    if(d.length < 10) return null;
+    return 'https://wa.me/55'+d;
+  }
+  function esc(s){
+    return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  async function api(path){
+    const resp = await fetch(path, {
+      headers: { 'x-admin-token': getToken() },
+    });
+    if(resp.status === 401){
+      clearToken(); showLogin(); throw new Error('unauthorized');
+    }
+    if(!resp.ok) throw new Error('api_'+resp.status);
+    return resp.json();
+  }
+
+  function showLogin(){
+    $('mainScreen').style.display = 'none';
+    $('loginScreen').style.display = 'flex';
+    $('tokenInput').value = '';
+    $('tokenInput').focus();
+  }
+  function showMain(){
+    $('loginScreen').style.display = 'none';
+    $('mainScreen').style.display = 'block';
+  }
+
+  // ===== LOGIN =====
+  $('btnLogin').addEventListener('click', async () => {
+    const t = $('tokenInput').value.trim();
+    if(!t) return;
+    $('loginErr').style.display = 'none';
+    setToken(t);
+    // testa buscando summary
+    try {
+      await api('/api/leads-summary');
+      showMain();
+      init();
+    } catch(e){
+      $('loginErr').textContent = 'Token inválido ou API fora do ar.';
+      $('loginErr').style.display = 'block';
+      clearToken();
+    }
+  });
+  $('tokenInput').addEventListener('keydown', e => {
+    if(e.key === 'Enter') $('btnLogin').click();
+  });
+  $('btnLogout').addEventListener('click', () => {
+    clearToken(); showLogin();
+  });
+
+  // ===== INIT =====
+  function getFilters(){
+    return {
+      from: $('fFrom').value,
+      to: $('fTo').value,
+      utm_source: $('fSource').value,
+      utm_campaign: $('fCampaign').value,
+      origem: $('fOrigem').value,
+      search: $('fSearch').value.trim(),
+      limit: parseInt($('pageSize').value, 10) || 50,
+    };
+  }
+
+  function buildQuery(extra){
+    const f = { ...getFilters(), ...(extra||{}) };
+    const parts = [];
+    Object.keys(f).forEach(k => {
+      if(f[k] !== '' && f[k] != null) parts.push(k+'='+encodeURIComponent(f[k]));
+    });
+    return parts.join('&');
+  }
+
+  async function loadSummary(){
+    try {
+      const f = getFilters();
+      const q = [];
+      if(f.from) q.push('from='+encodeURIComponent(f.from));
+      if(f.to) q.push('to='+encodeURIComponent(f.to+'T23:59:59'));
+      const s = await api('/api/leads-summary'+(q.length?'?'+q.join('&'):''));
+      renderKpis(s);
+      populateSelect('fSource', s.por_utm_source);
+      populateSelect('fCampaign', s.por_utm_campaign);
+    } catch(e){ console.error('summary', e); }
+  }
+
+  function renderKpis(s){
+    $('kpiPeriodo').textContent = s.total_periodo || 0;
+    $('kpiHoje').textContent = s.total_hoje || 0;
+    $('kpi7d').textContent = s.total_7d || 0;
+    const top = (s.por_utm_source && s.por_utm_source[0]) || null;
+    $('kpiTop').textContent = top ? top.key : '–';
+    $('kpiTopSub').textContent = top ? (top.count+' leads') : '';
+    const semUtm = s.sem_utm || 0;
+    $('kpiSemUtm').textContent = semUtm;
+    const totalNaoZero = (s.total_periodo || 0);
+    $('kpiSemUtmSub').textContent = totalNaoZero ? Math.round(100*semUtm/totalNaoZero)+'% do total' : '';
+  }
+
+  function populateSelect(id, items){
+    const sel = $(id);
+    const current = sel.value;
+    sel.innerHTML = '<option value="">(todos)</option>';
+    (items||[]).forEach(it => {
+      const opt = document.createElement('option');
+      opt.value = it.key;
+      opt.textContent = it.key + ' ('+it.count+')';
+      if(it.key === current) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  }
+
+  async function loadLeads(page){
+    currentPage = page || 1;
+    $('tbody').innerHTML = '<tr><td colspan="11" class="loading">Carregando...</td></tr>';
+    const f = getFilters();
+    const q = [];
+    if(f.from) q.push('from='+encodeURIComponent(f.from));
+    if(f.to) q.push('to='+encodeURIComponent(f.to+'T23:59:59'));
+    if(f.utm_source) q.push('utm_source='+encodeURIComponent(f.utm_source));
+    if(f.utm_campaign) q.push('utm_campaign='+encodeURIComponent(f.utm_campaign));
+    if(f.origem) q.push('origem='+encodeURIComponent(f.origem));
+    if(f.search) q.push('search='+encodeURIComponent(f.search));
+    q.push('page='+currentPage);
+    q.push('limit='+f.limit);
+    try {
+      const data = await api('/api/leads-list?'+q.join('&'));
+      renderLeads(data);
+    } catch(e){
+      $('tbody').innerHTML = '<tr><td colspan="11" class="empty">Erro ao carregar leads.</td></tr>';
+    }
+  }
+
+  function renderLeads(data){
+    currentTotal = data.total || 0;
+    $('totalHeader').textContent = '· '+currentTotal+' total';
+    const tbody = $('tbody');
+    if(!data.leads || !data.leads.length){
+      tbody.innerHTML = '<tr><td colspan="11" class="empty">Nenhum lead encontrado.</td></tr>';
+      renderPagination(data);
+      return;
+    }
+    tbody.innerHTML = '';
+    data.leads.forEach((l, i) => {
+      const tr = document.createElement('tr');
+      const utmSrc = l.utm_source ? '<span class="badge-utm">'+esc(l.utm_source)+'</span>' : '<span class="badge-none">—</span>';
+      const utmMed = l.utm_medium ? esc(l.utm_medium) : '<span class="badge-none">—</span>';
+      const utmCam = l.utm_campaign ? esc(l.utm_campaign) : '<span class="badge-none">—</span>';
+      const utmCnt = l.utm_content ? esc(l.utm_content) : '<span class="badge-none">—</span>';
+      const wLink = wppLink(l.whatsapp);
+      const openBtn = wLink ? '<a class="btn-open" href="'+wLink+'" target="_blank" rel="noopener">Abrir</a>' : '';
+      tr.innerHTML = `
+        <td class="td-data">${esc(fmtDate(l.created_at))}</td>
+        <td class="td-nome">${esc(l.nome || '')}</td>
+        <td class="td-wpp">${esc(fmtWpp(l.whatsapp))}</td>
+        <td><button class="btn-copy" data-wpp="${esc(l.whatsapp||'')}">Copiar</button>${openBtn}</td>
+        <td class="td-utm">${utmSrc}</td>
+        <td class="td-utm">${utmMed}</td>
+        <td class="td-utm">${utmCam}</td>
+        <td class="td-utm">${utmCnt}</td>
+        <td class="badge-device">${esc(l.device_type || '')}</td>
+        <td class="td-referrer" title="${esc(l.referrer||l.referer||'')}">${esc((l.referrer||l.referer||'').slice(0,30))}</td>
+        <td><button class="btn-detail" data-idx="${i}">Detalhes</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+    // handlers
+    tbody.querySelectorAll('.btn-copy').forEach(b => {
+      b.addEventListener('click', () => {
+        const w = b.getAttribute('data-wpp');
+        navigator.clipboard.writeText(w).then(() => showToast('WhatsApp copiado: '+fmtWpp(w)));
+      });
+    });
+    tbody.querySelectorAll('.btn-detail').forEach(b => {
+      b.addEventListener('click', () => {
+        const idx = parseInt(b.getAttribute('data-idx'), 10);
+        const lead = data.leads[idx];
+        const nextRow = b.closest('tr').nextElementSibling;
+        if(nextRow && nextRow.classList.contains('detail-row')){
+          nextRow.remove(); return;
+        }
+        const tr = document.createElement('tr');
+        tr.className = 'detail-row';
+        const info = {
+          id: lead.id,
+          created_at: lead.created_at,
+          origem: lead.origem,
+          landing_url: lead.landing_url,
+          referrer: lead.referrer,
+          referer_header: lead.referer,
+          ip: lead.ip,
+          user_agent: lead.user_agent,
+          browser: lead.browser, os: lead.os, device_type: lead.device_type,
+          fbclid: lead.fbclid, gclid: lead.gclid, ttclid: lead.ttclid, msclkid: lead.msclkid,
+          utm_term: lead.utm_term,
+          webhook_status: lead.webhook_status,
+          last_touch: lead.last_touch,
+          raw_utms: lead.raw_utms,
+        };
+        tr.innerHTML = '<td colspan="11"><pre>'+esc(JSON.stringify(info, null, 2))+'</pre></td>';
+        b.closest('tr').insertAdjacentElement('afterend', tr);
+      });
+    });
+    renderPagination(data);
+  }
+
+  function renderPagination(data){
+    const info = $('pageInfo');
+    const nav = $('pageNav');
+    const total = data.total || 0;
+    const pages = data.pages || 1;
+    const p = data.page || 1;
+    const lim = data.limit || 50;
+    const start = total ? ((p-1)*lim + 1) : 0;
+    const end = Math.min(p*lim, total);
+    info.textContent = start+'–'+end+' de '+total;
+    nav.innerHTML = '';
+    const mk = (label, page, cur, disabled) => {
+      const b = document.createElement('button');
+      b.textContent = label; if(cur) b.className = 'active'; if(disabled) b.disabled = true;
+      if(!disabled && !cur) b.addEventListener('click', () => loadLeads(page));
+      return b;
+    };
+    nav.appendChild(mk('«', p-1, false, p<=1));
+    // 5 pages around current
+    const pmin = Math.max(1, p-2), pmax = Math.min(pages, pmin+4);
+    for(let i=pmin;i<=pmax;i++) nav.appendChild(mk(String(i), i, i===p, false));
+    nav.appendChild(mk('»', p+1, false, p>=pages));
+  }
+
+  function csvEscape(v){
+    if(v == null) return '';
+    const s = typeof v === 'object' ? JSON.stringify(v) : String(v);
+    if(/[",\n;]/.test(s)) return '"'+s.replace(/"/g,'""')+'"';
+    return s;
+  }
+
+  $('btnExport').addEventListener('click', async () => {
+    const btn = $('btnExport');
+    const orig = btn.textContent; btn.textContent = 'Exportando...'; btn.disabled = true;
+    try {
+      const f = getFilters();
+      const q = [];
+      if(f.from) q.push('from='+encodeURIComponent(f.from));
+      if(f.to) q.push('to='+encodeURIComponent(f.to+'T23:59:59'));
+      if(f.utm_source) q.push('utm_source='+encodeURIComponent(f.utm_source));
+      if(f.utm_campaign) q.push('utm_campaign='+encodeURIComponent(f.utm_campaign));
+      if(f.origem) q.push('origem='+encodeURIComponent(f.origem));
+      if(f.search) q.push('search='+encodeURIComponent(f.search));
+      q.push('limit=10000'); q.push('page=1');
+      const data = await api('/api/leads-list?'+q.join('&'));
+      const cols = ['created_at','nome','whatsapp','origem','utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid','landing_url','referrer','device_type','browser','os','ip','webhook_status'];
+      const rows = [cols.join(';')];
+      (data.leads||[]).forEach(l => rows.push(cols.map(c => csvEscape(l[c])).join(';')));
+      const blob = new Blob(['﻿'+rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const today = new Date().toISOString().slice(0,10);
+      a.href = url; a.download = 'leads-carla-'+today+'.csv';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      showToast('CSV com '+(data.leads||[]).length+' leads exportado');
+    } catch(e){
+      showToast('Erro ao exportar CSV');
+    } finally {
+      btn.textContent = orig; btn.disabled = false;
+    }
+  });
+
+  $('btnApply').addEventListener('click', () => { loadSummary(); loadLeads(1); });
+  $('btnClear').addEventListener('click', () => {
+    ['fFrom','fTo','fSearch'].forEach(id => $(id).value = '');
+    ['fSource','fCampaign','fOrigem'].forEach(id => $(id).value = '');
+    loadSummary(); loadLeads(1);
+  });
+  $('pageSize').addEventListener('change', () => loadLeads(1));
+
+  function init(){
+    loadSummary();
+    loadLeads(1);
+  }
+
+  // startup
+  if(getToken()){
+    // validação lazy — carrega direto e trata 401
+    (async () => {
+      showMain();
+      try { await api('/api/leads-summary'); init(); }
+      catch(e){ /* já foi redirecionado se 401 */ }
+    })();
+  } else {
+    showLogin();
+  }
+})();
+</script>
+</body>
+</html>
