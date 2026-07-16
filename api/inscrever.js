@@ -211,59 +211,51 @@ module.exports = async (req, res) => {
 
   // ============================================================
   // ESTRATÉGIA DE VELOCIDADE:
-  //   1. Supabase é bloqueante (precisa do ID pra tudo depois).
-  //   2. Assim que salvar, RESPONDE 200 pro usuário (front redireciona).
-  //   3. Make + ManyChat continuam rodando em BACKGROUND (waitUntil).
-  //      Vercel mantém o container vivo até promise resolver, mas
-  //      cliente já foi embora e nao espera.
+  //   Roda os 3 em paralelo (allSettled), com timeouts curtos:
+  //     - Supabase: essencial, precisa completar
+  //     - Make:     3s timeout
+  //     - ManyChat: 2,5s timeout por chamada (create + send em sequência),
+  //                 total efetivo ~2-3s
+  //   Response total esperado: 1,0-1,5s (limitado pela chamada mais lenta)
+  //
+  //   Note: usar waitUntil não é confiavel no Vercel Node runtime,
+  //   então rodamos tudo dentro da handler mesmo.
   // ============================================================
 
-  let id = null;
-  try {
-    id = await postSupabase(supabasePayload);
-  } catch (e) {
-    console.error('[inscrever] supabase falhou', e.message);
-    // ainda responde 200 pro lead nao travar
-    return res.status(200).json({ ok: false, saved: false, reason: 'supabase_error' });
+  const [supResult, makeResult, mcResult] = await Promise.allSettled([
+    postSupabase(supabasePayload),
+    postMake(makePayload),
+    createAndSendFlow({ nome, whatsapp }),
+  ]);
+
+  const id = supResult.status === 'fulfilled' ? supResult.value : null;
+  const webhookStatus = makeResult.status === 'fulfilled' ? makeResult.value : 'failed_promise';
+  const manychat = mcResult.status === 'fulfilled' ? mcResult.value : { status: 'failed_promise', subscriber_id: null };
+
+  if (supResult.status === 'rejected') {
+    console.error('[inscrever] supabase falhou', supResult.reason?.message);
+  }
+  if (makeResult.status === 'rejected') {
+    console.error('[inscrever] make falhou', makeResult.reason?.message);
+  }
+  if (mcResult.status === 'rejected') {
+    console.error('[inscrever] manychat falhou', mcResult.reason?.message);
   }
 
-  // background: Make + ManyChat + patch de status
-  const bg = (async () => {
-    const [makeResult, mcResult] = await Promise.allSettled([
-      postMake(makePayload),
-      createAndSendFlow({ nome, whatsapp }),
-    ]);
-    const webhookStatus = makeResult.status === 'fulfilled' ? makeResult.value : 'failed_promise';
-    const manychat = mcResult.status === 'fulfilled' ? mcResult.value : { status: 'failed_promise', subscriber_id: null };
-
-    if (makeResult.status === 'rejected') {
-      console.error('[inscrever] make falhou', makeResult.reason?.message);
-    }
-    if (mcResult.status === 'rejected') {
-      console.error('[inscrever] manychat falhou', mcResult.reason?.message);
-    }
-
-    if (id) {
-      await patchLead(id, {
-        webhook_status: webhookStatus,
-        manychat_status: manychat.status,
-        manychat_subscriber_id: manychat.subscriber_id,
-      });
-    }
-  })();
-
-  // Vercel: waitUntil registra a promise pra rodar em background sem
-  // travar a resposta. Se nao existir (ambientes locais), usa .catch.
-  if (typeof res.waitUntil === 'function') {
-    res.waitUntil(bg);
-  } else {
-    bg.catch(err => console.error('[inscrever] bg falhou', err));
+  // patch de status no Supabase (fire-and-forget agora, resposta já vai sair)
+  if (id) {
+    patchLead(id, {
+      webhook_status: webhookStatus,
+      manychat_status: manychat.status,
+      manychat_subscriber_id: manychat.subscriber_id,
+    });
   }
 
-  // Responde IMEDIATO (só Supabase foi awaited) — front redireciona pra /obrigado
   return res.status(200).json({
     ok: true,
     saved: !!id,
     id,
+    webhook: webhookStatus,
+    manychat: manychat.status,
   });
 };

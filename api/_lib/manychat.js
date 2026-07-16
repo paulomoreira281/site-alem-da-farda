@@ -56,7 +56,7 @@ function normalizeBrPhone(input) {
   return '+55' + ddd + numero;
 }
 
-async function apiPost(path, body, timeoutMs = 5000) {
+async function apiPost(path, body, timeoutMs = 2500) {
   const token = process.env.MANYCHAT_TOKEN;
   if (!token) throw new Error('MANYCHAT_TOKEN ausente');
   const ctrl = new AbortController();
@@ -82,7 +82,7 @@ async function apiPost(path, body, timeoutMs = 5000) {
   }
 }
 
-async function apiGet(path, timeoutMs = 5000) {
+async function apiGet(path, timeoutMs = 2500) {
   const token = process.env.MANYCHAT_TOKEN;
   if (!token) throw new Error('MANYCHAT_TOKEN ausente');
   const ctrl = new AbortController();
