@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/v2", "destination": "/index-v2.html" }
+  ],
   "headers": [
     {
       "source": "/(.*).(jpg|jpeg|png|webp|avif|gif|svg|ico|woff|woff2|ttf|otf)",
@@ -16,6 +19,12 @@
     },
     {
       "source": "/obrigado",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=300, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/v2",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, s-maxage=300, stale-while-revalidate=86400" }
       ]
