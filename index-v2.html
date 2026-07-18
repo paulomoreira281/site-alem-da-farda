@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+<!--
+Split A/B DESLIGADO. Reativar na semana que vem descomentando este bloco.
+Quando reativado, sorteia 50/50 na primeira visita e redireciona pra /v2 se B.
 <script>
-/* Split A/B — se acessou /v2 diretamente sem cookie, grava B.
-   Se o cookie era A (visitante que já viu a v1), redireciona pra "/". */
 (function(){
   try {
     var m = document.cookie.match(/(?:^|;\s*)variante=(A|B)/);
-    var current = m ? m[1] : null;
-    if (current === 'A') {
+    var v = m ? m[1] : (Math.random() < 0.5 ? 'A' : 'B');
+    document.cookie = 'variante=' + v + '; Path=/; Max-Age=' + (60*60*24*30) + '; SameSite=Lax';
+    if (v === 'B' && !/\/v2(\?|$|#)/.test(location.pathname + location.search + location.hash)) {
       var qs = location.search || '';
       var hash = location.hash || '';
-      location.replace('/' + qs + hash);
-      return;
+      location.replace('/v2' + qs + hash);
     }
-    // Sem cookie ou já era B → fixa B
-    document.cookie = 'variante=B; Path=/; Max-Age=' + (60*60*24*30) + '; SameSite=Lax';
   } catch(_) {}
 })();
 </script>
+-->
 <title>Aula ao vivo — 28 de julho, terça-feira às 20h, sem gravação | Carla Martins</title>
-<meta name="description" content="Aula ao vivo, gratuita, no Google Meet — 28 de julho, terça-feira às 20h. Carla Martins abre o método que ela usou pra estudar pra concurso policial trabalhando o dia inteiro. NÃO fica gravado: quem não estiver online perde." />
+<meta name="description" content="Aula ao vivo, gratuita, no Google Meet — 28 de julho, terça-feira às 20h. A Carla Martins abre o método que a aprovou em vários concursos policiais, entre eles PC-GO e Polícia Judicial do TRT (8º lugar). NÃO fica gravado: quem não estiver online perde." />
 <meta name="theme-color" content="#050505" />
 <meta property="og:title" content="Aula ao vivo com Carla Martins — 28/07, terça às 20h, sem gravação" />
 <meta property="og:description" content="Aula ao vivo no Google Meet. NÃO fica gravado. Vaga limitada." />
@@ -32,6 +32,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="dns-prefetch" href="https://www.clarity.ms">
+<link rel="preload" as="image" href="/logo-imersao-pc.png?v=3" fetchpriority="high">
 <link rel="preload" as="image" href="/carla-pc.webp?v=viatura" type="image/webp" fetchpriority="high" media="(min-width: 981px)">
 <link rel="preload" as="image" href="/carla-pc-face.webp?v=viatura" type="image/webp" fetchpriority="high" media="(max-width: 980px)">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Oswald:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -220,7 +221,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     gap:0 40px;
     max-width:1180px;
     margin:0 auto;
-    padding:48px 28px 54px;
+    padding:0 28px 54px;
     align-items:center;
   }
   .hero-copy{position:relative;z-index:4;grid-area:copy}
@@ -906,22 +907,23 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<!-- TOP STRIP: aviso de exclusividade -->
-<div class="top-strip"><span class="ts-dot"></span> EXCLUSIVO PARA <strong>CONCURSOS POLICIAIS</strong></div>
-
 <!-- HERO 2 colunas -->
 <section class="hero">
   <div class="hero-grid">
+
+    <img src="/logo-imersao-pc.png?v=3" alt="Imersão Polícia Civil 2026" class="hero-logo-mobile" width="818" height="322" fetchpriority="high" decoding="sync" aria-hidden="true" />
+
+    <img src="/logo-imersao-pc.png?v=3" alt="Imersão Polícia Civil 2026" class="hero-logo" width="818" height="322" fetchpriority="high" decoding="sync" />
 
     <div class="hero-copy">
       <div class="badge"><span class="dot"></span> AO VIVO · NÃO FICA GRAVADO</div>
 
       <h1>
-        Aprenda o método que me tornou <span class="red">Policial Civil e Judicial</span>, mesmo <span class="gold">trabalhando e estudando</span>
+        Participe da imersão e tenha o passo a passo para sua <span class="red">aprovação na Polícia Civil</span> em <span class="gold">2026</span>, mesmo estudando e trabalhando
       </h1>
 
       <p class="lead">
-        Se você quer passar em concurso mas trabalha o dia inteiro e não sabe como render nas poucas horas que tem, <strong>essa aula é pra você.</strong>
+        Eu vou te mostrar o método que me tornou Policial Civil. <strong>Trabalhava o dia inteiro e estudava nos horários que conseguia.</strong>
       </p>
 
       <p class="lead">
@@ -1001,8 +1003,96 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- MENTORA (Carla) -->
+<!-- JANELA DE OPORTUNIDADES -->
 <section>
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:20px">A MAIOR JANELA DE OPORTUNIDADES <span class="gold">DE POLÍCIAS CIVIS</span></h2>
+    <p class="janela-lead reveal">
+      Nunca houve um momento igual pra quem sonha em ser Policial Civil. <strong>Editais publicados, com banca definida e autorizados</strong> em vários estados do país — a maior parte com nível superior e salários acima de R$ 7.000.
+    </p>
+
+    <div class="editais-grid">
+      <div class="edital-card reveal">
+        <div class="sigla">PC-AL</div>
+        <div class="estado">Alagoas · Cebraspe</div>
+        <div class="vagas">300 vagas</div>
+        <div class="vagas-label">Agente · Escrivão · R$ 5.318</div>
+        <span class="status publicado"><span class="dot"></span>Edital publicado</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-PR</div>
+        <div class="estado">Paraná · FGV</div>
+        <div class="vagas">Cadastro reserva</div>
+        <div class="vagas-label">Agente · Papiloscopista · R$ 9.007</div>
+        <span class="status publicado"><span class="dot"></span>Edital publicado</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-MA</div>
+        <div class="estado">Maranhão · Cebraspe</div>
+        <div class="vagas">357 + 714 CR</div>
+        <div class="vagas-label">Oficial Investigador · R$ 6.514</div>
+        <span class="status publicado"><span class="dot"></span>Edital publicado</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-BA</div>
+        <div class="estado">Bahia · Inst. AOCP</div>
+        <div class="vagas">650 vagas</div>
+        <div class="vagas-label">Investigador · Escrivão · até R$ 5.4k</div>
+        <span class="status iminente"><span class="dot"></span>Banca definida</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-GO</div>
+        <div class="estado">Goiás</div>
+        <div class="vagas">+800 vagas</div>
+        <div class="vagas-label">Agente · Escrivão · Papiloscopista · até R$ 14k</div>
+        <span class="status previsto"><span class="dot"></span>Previsto 2027-2028</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-DF</div>
+        <div class="estado">Distrito Federal</div>
+        <div class="vagas">255 vagas</div>
+        <div class="vagas-label">Agente de Custódia · Papiloscopista · até R$ 30k</div>
+        <span class="status previsto"><span class="dot"></span>Em breve</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-TO</div>
+        <div class="estado">Tocantins</div>
+        <div class="vagas">381 vagas</div>
+        <div class="vagas-label">Oficial · Papiloscopista · até R$ 21k</div>
+        <span class="status previsto"><span class="dot"></span>Em breve</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-PA</div>
+        <div class="estado">Pará</div>
+        <div class="vagas">100 vagas</div>
+        <div class="vagas-label">Escrivão · até R$ 8.950</div>
+        <span class="status previsto"><span class="dot"></span>Em breve</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-PE</div>
+        <div class="estado">Pernambuco</div>
+        <div class="vagas">1.270 vagas</div>
+        <div class="vagas-label">Agente · Escrivão · R$ 5.400</div>
+        <span class="status previsto"><span class="dot"></span>Em breve</span>
+      </div>
+    </div>
+
+    <div class="janela-total reveal">
+      <div class="total-num">+ de 4.000 oportunidades</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENTORA (Carla) -->
+<section class="bg-soft">
   <div class="container">
     <h2 class="section-title" style="margin-bottom:44px">QUEM É <span class="gold">A MENTORA</span></h2>
 
@@ -1011,7 +1101,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="mentor-body">
         <h3>Carla Martins</h3>
         <p>Eu fui professora de inglês ganhando R$ 2.000 por mês. Formada em Letras. Reprovei muito antes de entender que o problema não era eu — era o método.</p>
-        <p>Depois de ajustar meu método, em menos de 2 anos, passei em vários concursos policiais, entre eles a <strong>Polícia Civil de Goiás</strong> e a <strong>Polícia Judicial do TRT 10ª Região (8º lugar)</strong>. Trabalhava o dia inteiro e estudava nos horários que conseguia. Hoje eu ensino esse método pra quem quer entrar pra polícia.</p>
+        <p>Depois de ajustar meu método, em menos de 2 anos, passei em vários concursos policiais, entre eles a <strong>Polícia Civil de Goiás</strong> e a <strong>Polícia Judicial do TRT 10ª Região (8º lugar)</strong>. Trabalhava o dia inteiro e estudava nos horários que conseguia.</p>
         <p>Nessa aula eu não vou te motivar. Vou te mostrar o passo a passo.</p>
       </div>
     </div>
@@ -1035,26 +1125,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <details class="faq-item reveal">
         <summary>
-          Serve pra qual concurso policial?
+          Serve pra qual concurso de Polícia Civil?
           <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </summary>
-        <div class="faq-answer">Qualquer concurso da área policial. <strong>Polícia Civil, Polícia Militar, Polícia Federal, PRF, Polícia Penal, Polícia Científica</strong> — o método é o mesmo. O que muda é o edital e a banca. A rotina de estudo funciona igual.</div>
+        <div class="faq-answer">Qualquer concurso de Polícia Civil. Funciona pra <strong>PC-GO, PC-DF, PC-BA, PC-AL, PC-TO, PC-MG</strong> e todas as outras Polícias Civis do país.</div>
       </details>
 
       <details class="faq-item reveal">
         <summary>
-          E se eu ainda não escolhi qual concurso vou fazer?
+          E se eu ainda não escolhi qual Polícia Civil vou fazer?
           <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </summary>
-        <div class="faq-answer">Vem mesmo assim. Uma das coisas que eu mostro na aula é <strong>como identificar qual concurso policial tem a sua cara</strong> antes de perder mais um ano estudando pra prova errada.</div>
+        <div class="faq-answer">Vem mesmo assim. Uma das coisas que eu mostro na aula é como decidir entre <strong>PC-GO, PC-DF, PC-BA, PC-AL, PC-TO, PC-MG e as outras Polícias Civis</strong> sem perder mais um ano em cima do muro.</div>
       </details>
 
       <details class="faq-item reveal">
         <summary>
-          Eu já tenho cursinho. Não é redundante?
+          Eu já tenho cursinho de Polícia Civil. Não é redundante?
           <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </summary>
-        <div class="faq-answer">Não. A aula te ensina a usar o cursinho que você já tem. Não vou te empurrar PDF. Vou te dar ordem, ritmo e revisão pra render mais nas poucas horas que sobram do seu dia.</div>
+        <div class="faq-answer">Não. A aula te ensina a usar o cursinho de Polícia Civil que você já tem. Não vou te empurrar PDF. Vou te dar ordem, ritmo e revisão.</div>
       </details>
 
       <details class="faq-item reveal">
@@ -1062,7 +1152,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           Quanto tempo dura a aula?
           <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
         </summary>
-        <div class="faq-answer">Cerca de 90 minutos. Quem fica até o fim leva um bônus exclusivo pra quem quer entrar pra polícia estudando com pouco tempo.</div>
+        <div class="faq-answer">Cerca de 90 minutos. Quem fica até o fim leva um bônus exclusivo pra quem está mirando na aprovação em Polícia Civil.</div>
       </details>
 
     </div>
@@ -1196,7 +1286,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           nome,
           whatsapp: wppV,
           origem: 'live-28-julho',
-          variante: 'B',
+          variante: 'A',
           ...tracking,
         }),
       });
