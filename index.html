@@ -311,6 +311,116 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     max-width:680px;
     text-align:left;
   }
+
+  /* ----- SEÇÃO JANELA DE OPORTUNIDADES ----- */
+  .janela-lead{
+    text-align:center;
+    max-width:720px;
+    margin:0 auto 34px;
+    color:var(--text-soft);
+    font-size:1.02rem;
+    line-height:1.6;
+  }
+  .janela-lead strong{color:var(--gold-bright);font-weight:700}
+  .editais-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    max-width:960px;
+    margin:0 auto 24px;
+  }
+  @media (max-width:900px){.editais-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.editais-grid{grid-template-columns:1fr}}
+  .edital-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:20px 18px;
+    position:relative;
+    transition:transform .18s ease, border-color .18s ease;
+  }
+  .edital-card:hover{transform:translateY(-2px);border-color:var(--gold-line)}
+  .edital-card .sigla{
+    font-family:'Oswald','Inter',sans-serif;
+    font-size:1.6rem;font-weight:700;
+    color:var(--text);
+    letter-spacing:.02em;
+    margin-bottom:2px;
+    line-height:1;
+  }
+  .edital-card .estado{
+    font-size:.72rem;font-weight:600;
+    color:var(--text-muted);
+    text-transform:uppercase;letter-spacing:.14em;
+    margin-bottom:14px;
+  }
+  .edital-card .vagas{
+    font-size:1.15rem;font-weight:800;
+    color:var(--gold-bright);
+    margin-bottom:4px;
+  }
+  .edital-card .vagas-label{
+    font-size:.72rem;color:var(--text-muted);
+    text-transform:uppercase;letter-spacing:.1em;
+    margin-bottom:14px;
+  }
+  .edital-card .status{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:.72rem;font-weight:700;
+    padding:5px 10px;border-radius:6px;
+    text-transform:uppercase;letter-spacing:.08em;
+  }
+  .edital-card .status.publicado{
+    background:rgba(200,50,50,.14);
+    color:#ff6b6b;
+    border:1px solid rgba(200,50,50,.35);
+  }
+  .edital-card .status.iminente{
+    background:rgba(212,168,87,.14);
+    color:var(--gold-bright);
+    border:1px solid var(--gold-line);
+  }
+  .edital-card .status.previsto{
+    background:rgba(120,120,120,.14);
+    color:var(--text-soft);
+    border:1px solid var(--border);
+  }
+  .edital-card .status .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:currentColor;
+  }
+  .edital-card .status.publicado .dot{
+    animation:pulseRed 1.6s ease-in-out infinite;
+  }
+  .janela-total{
+    text-align:center;
+    max-width:720px;
+    margin:8px auto 0;
+    padding:22px 24px;
+    background:linear-gradient(180deg, rgba(212,168,87,.06) 0%, transparent 100%);
+    border:1px solid var(--gold-line);
+    border-radius:12px;
+  }
+  .janela-total .total-num{
+    font-family:'Oswald','Inter',sans-serif;
+    font-size:2.4rem;font-weight:700;
+    color:var(--gold-bright);
+    line-height:1;
+    letter-spacing:.01em;
+  }
+  .janela-total .total-label{
+    font-size:.82rem;color:var(--text-soft);
+    text-transform:uppercase;letter-spacing:.16em;
+    margin-top:8px;font-weight:600;
+  }
+  @media (max-width:600px){
+    .janela-lead{font-size:.94rem}
+    .edital-card{padding:16px 14px}
+    .edital-card .sigla{font-size:1.4rem}
+    .edital-card .vagas{font-size:1.05rem}
+    .janela-total .total-num{font-size:1.9rem}
+    .janela-total .total-label{font-size:.72rem}
+  }
   .hero-pills{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   @media (max-width:600px){.hero-pills{grid-template-columns:1fr}}
   .pill{
@@ -889,6 +999,75 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Nessa aula eu não vou te motivar. Vou te mostrar o passo a passo.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- JANELA DE OPORTUNIDADES -->
+<section class="bg-soft">
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:20px">A MAIOR JANELA DE OPORTUNIDADES <span class="gold">DE POLÍCIAS CIVIS</span></h2>
+    <p class="janela-lead reveal">
+      Nunca houve um momento igual pra quem sonha em ser Policial Civil. <strong>Editais publicados, iminentes e autorizados</strong> nos próximos meses em vários estados do país — a maior parte com formação em nível superior e salário inicial acima de R$&nbsp;7.000.
+    </p>
+
+    <div class="editais-grid">
+      <div class="edital-card reveal">
+        <div class="sigla">PC-GO</div>
+        <div class="estado">Goiás</div>
+        <div class="vagas">400+ vagas</div>
+        <div class="vagas-label">Todas as carreiras</div>
+        <span class="status publicado"><span class="dot"></span>Edital publicado</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-DF</div>
+        <div class="estado">Distrito Federal</div>
+        <div class="vagas">1.800+ vagas</div>
+        <div class="vagas-label">Escrivão · Agente</div>
+        <span class="status iminente"><span class="dot"></span>Iminente 2026</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-BA</div>
+        <div class="estado">Bahia</div>
+        <div class="vagas">1.000+ vagas</div>
+        <div class="vagas-label">Investigador · Escrivão</div>
+        <span class="status iminente"><span class="dot"></span>Iminente 2026</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-AL</div>
+        <div class="estado">Alagoas</div>
+        <div class="vagas">300+ vagas</div>
+        <div class="vagas-label">Agente · Escrivão</div>
+        <span class="status previsto"><span class="dot"></span>Autorizado</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-TO</div>
+        <div class="estado">Tocantins</div>
+        <div class="vagas">300+ vagas</div>
+        <div class="vagas-label">Agente · Escrivão</div>
+        <span class="status previsto"><span class="dot"></span>Autorizado</span>
+      </div>
+
+      <div class="edital-card reveal">
+        <div class="sigla">PC-MG</div>
+        <div class="estado">Minas Gerais</div>
+        <div class="vagas">2.500+ vagas</div>
+        <div class="vagas-label">Escrivão · Investigador</div>
+        <span class="status previsto"><span class="dot"></span>Previsto 2026</span>
+      </div>
+    </div>
+
+    <div class="janela-total reveal">
+      <div class="total-num">+ de 6.000 vagas</div>
+      <div class="total-label">Só nesses 6 estados · nos próximos 12 meses</div>
+    </div>
+
+    <p class="janela-lead reveal" style="margin-top:34px;font-size:.94rem">
+      Não importa em qual estado você está: o método que eu vou abrir na aula do dia 28 funciona pra qualquer Polícia Civil do país. <strong>É rotina, é cabeça — não é PDF.</strong>
+    </p>
   </div>
 </section>
 
