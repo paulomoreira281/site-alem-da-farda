@@ -123,6 +123,9 @@ module.exports = async (req, res) => {
   const nome = String(body.nome || '').trim().slice(0, 120);
   const whatsapp = String(body.whatsapp || '').replace(/\D/g, '').slice(0, 15);
   const origem = String(body.origem || 'live').trim().slice(0, 60);
+  // Split A/B: aceita apenas 'A' ou 'B'; qualquer outra coisa vira null
+  const varianteRaw = String(body.variante || '').trim().toUpperCase();
+  const variante = varianteRaw === 'A' || varianteRaw === 'B' ? varianteRaw : null;
 
   if (!nome || whatsapp.length < 10) {
     return res.status(400).json({ ok: false, error: 'nome e whatsapp obrigatórios' });
@@ -162,6 +165,14 @@ module.exports = async (req, res) => {
       const j = JSON.stringify(body.raw_utms);
       raw_utms = JSON.parse(j.slice(0, 4000));
     } catch (_) {}
+  }
+
+  // Split A/B: guarda a variante dentro de raw_utms.variante enquanto a
+  // coluna dedicada não é criada no banco. Depois basta filtrar por
+  // raw_utms->>'variante' = 'A' ou 'B' pra medir CVR.
+  if (variante) {
+    if (!raw_utms || typeof raw_utms !== 'object') raw_utms = {};
+    raw_utms.variante = variante;
   }
 
   const primeiro_nome = extractPrimeiroNome(nome);
