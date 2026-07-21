@@ -150,17 +150,17 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     text-align:left;
     min-height:560px;
   }
-  /* fundo "operação PC" gerado em CSS — gradiente cinza médio + luz vermelha de giroflex + viñeta mais suave */
+  /* fundo "operação PC" gerado em CSS — gradiente cinza médio + luz vermelha de giroflex + viñeta media */
   .hero::before{
     content:"";
     position:absolute;inset:0;
     background:
-      /* viñeta menos agressiva (era rgba(0,0,0,.95) → agora .60) */
-      radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(20,18,15,.35) 55%, rgba(20,18,15,.60) 100%),
+      /* viñeta media pra dar respaldo ao texto sem voltar a ficar preto */
+      radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(15,13,10,.55) 60%, rgba(10,9,7,.82) 100%),
       /* giroflex vermelho desfocado */
       radial-gradient(circle at 78% 25%, rgba(255,30,55,.24) 0%, transparent 38%),
       radial-gradient(circle at 22% 75%, rgba(179,18,42,.18) 0%, transparent 40%),
-      /* base cinza-marrom médio (era #080605 → agora clareado) */
+      /* base cinza-marrom médio */
       linear-gradient(180deg,#26221c 0%, #1a1814 100%);
     z-index:0;
   }
@@ -286,16 +286,23 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
   .hero h1{
     font-family:'Oswald','Inter',sans-serif;
-    font-weight:700;
+    font-weight:800;
     font-size:clamp(2.1rem, 4.4vw, 3.4rem);
-    line-height:1.02;
+    line-height:1.05;
     letter-spacing:.005em;
     color:#fff;
     margin:0 0 20px;
     max-width:620px;
+    text-shadow:0 2px 12px rgba(0,0,0,.6);
   }
-  .hero h1 .gold{color:var(--gold-bright)}
-  .hero h1 .red{color:#ff3a55}
+  .hero h1 .gold{
+    color:#ffc86a;
+    text-shadow:0 2px 12px rgba(0,0,0,.7), 0 0 24px rgba(255,200,106,.25);
+  }
+  .hero h1 .red{
+    color:#ff5266;
+    text-shadow:0 2px 12px rgba(0,0,0,.7), 0 0 24px rgba(255,82,102,.28);
+  }
   .hero .lead{
     color:#fff;
     font-size:clamp(1rem, 1.3vw, 1.1rem);
@@ -305,6 +312,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     text-align:justify;
     text-align-last:left;
     hyphens:auto;
+    text-shadow:0 1px 8px rgba(0,0,0,.55);
   }
   .hero .lead:last-of-type{margin-bottom:26px}
   .hero .lead strong{color:#fff;font-weight:700}
