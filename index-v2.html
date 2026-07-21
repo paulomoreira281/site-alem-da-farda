@@ -1260,7 +1260,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
   // ===== /TRACKING =====
 
-  document.getElementById('liveForm').addEventListener('submit', async function(e){
+  document.getElementById('liveForm').addEventListener('submit', function(e){
     e.preventDefault();
     const nome = document.getElementById('nome').value.trim();
     const wppV = document.getElementById('whatsapp').value.replace(/\D/g,'');
@@ -1269,44 +1269,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if(wppV.length < 10){ alert('Preencha um WhatsApp válido com DDD.'); return; }
 
     const btn = e.target.querySelector('.submit-btn');
-    const textoOriginal = btn.textContent;
     btn.textContent = 'RESERVANDO SUA VAGA...';
     btn.disabled = true;
 
     const tracking = getTrackingSnapshot();
+    const payload = {
+      nome,
+      whatsapp: wppV,
+      origem: 'live-28-julho',
+      variante: 'A',
+      ...tracking,
+    };
+    const body = JSON.stringify(payload);
 
     try {
-      const resp = await fetch('/api/inscrever', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome,
-          whatsapp: wppV,
-          origem: 'live-28-julho',
-          variante: 'A',
-          ...tracking,
-        }),
-      });
-      const data = await resp.json().catch(() => ({}));
+      localStorage.setItem('carla_lead', JSON.stringify({ nome, whatsapp: wppV, ts: Date.now() }));
+    } catch(_){}
 
-      // guarda no localStorage pra página de obrigado saudar o lead
+    // FIRE-AND-FORGET: sendBeacon garante entrega mesmo apos navegacao
+    let sent = false;
+    if (navigator.sendBeacon) {
       try {
-        localStorage.setItem('carla_lead', JSON.stringify({ nome, whatsapp: wppV, ts: Date.now() }));
-      } catch(_){}
-
-      // segue pra página de obrigado mesmo se a API falhar (não travar UX do lead)
-      if (!resp.ok) {
-        console.warn('[inscrever] API respondeu com erro:', resp.status, data);
-      }
-      window.location.href = '/obrigado';
-    } catch (err) {
-      console.error('[inscrever] falha de rede', err);
-      // fallback: salva local + segue mesmo assim
-      try {
-        localStorage.setItem('carla_lead', JSON.stringify({ nome, whatsapp: wppV, ts: Date.now(), fallback: true }));
-      } catch(_){}
-      window.location.href = '/obrigado';
+        const blob = new Blob([body], { type: 'application/json' });
+        sent = navigator.sendBeacon('/api/inscrever', blob);
+      } catch(_) {}
     }
+    if (!sent) {
+      try {
+        fetch('/api/inscrever', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body,
+          keepalive: true,
+        }).catch(() => {});
+      } catch(_) {}
+    }
+
+    // Redireciona IMEDIATAMENTE
+    window.location.href = '/obrigado';
   });
 </script>
 
