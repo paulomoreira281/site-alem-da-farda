@@ -25,7 +25,7 @@ seta cookie 'variante=B' pra quem não tem cookie ainda.
 -->
 <title>Aula ao vivo — 28 de julho, terça-feira às 20h, sem gravação | Carla Martins</title>
 <meta name="description" content="Aula ao vivo, gratuita, no Google Meet — 28 de julho, terça-feira às 20h. Carla Martins abre o método que ela usou pra estudar pra concurso policial trabalhando o dia inteiro. NÃO fica gravado: quem não estiver online perde." />
-<meta name="theme-color" content="#050505" />
+<meta name="theme-color" content="#1e1c17" />
 <meta property="og:title" content="Aula ao vivo com Carla Martins — 28/07, terça às 20h, sem gravação" />
 <meta property="og:description" content="Aula ao vivo no Google Meet. NÃO fica gravado. Vaga limitada." />
 
@@ -54,11 +54,11 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <style>
   :root{
-    /* paleta Carla Martins — preto profundo + marfim + dourado acobreado */
-    --bg:#050505;
-    --bg-soft:#0c0c0c;
-    --bg-card:#111110;
-    --bg-card-soft:#0a0a0a;
+    /* paleta Carla Martins — cinza médio quente + marfim + dourado acobreado */
+    --bg:#1e1c17;         /* era #050505 — clareou pra cinza-marrom médio */
+    --bg-soft:#25221c;    /* era #0c0c0c */
+    --bg-card:#2b2822;    /* era #111110 */
+    --bg-card-soft:#221f1a; /* era #0a0a0a */
     --text:#f5f1ea;
     --text-soft:#cfcabf;
     --text-muted:#9a948b;
@@ -74,8 +74,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     --green:#d4a857;
     --green-bright:#e8c074;
 
-    --navy:#050505;
-    --navy-soft:#111110;
+    --navy:#1e1c17;       /* mesmo do bg agora */
+    --navy-soft:#25221c;
   }
   .display{
     font-family:'Oswald','Inter',sans-serif;
@@ -145,23 +145,23 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   .hero{
     position:relative;
     padding:0;
-    background:#050505;
+    background:#1e1c17;
     overflow:hidden;
     text-align:left;
     min-height:560px;
   }
-  /* fundo "operação PC" gerado em CSS — gradiente escuro + luz vermelha de giroflex + viñeta agressiva */
+  /* fundo "operação PC" gerado em CSS — gradiente cinza médio + luz vermelha de giroflex + viñeta mais suave */
   .hero::before{
     content:"";
     position:absolute;inset:0;
     background:
-      /* viñeta escura forte nas bordas (operação noturna) */
-      radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.95) 100%),
+      /* viñeta menos agressiva (era rgba(0,0,0,.95) → agora .60) */
+      radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(20,18,15,.35) 55%, rgba(20,18,15,.60) 100%),
       /* giroflex vermelho desfocado */
-      radial-gradient(circle at 78% 25%, rgba(255,30,55,.28) 0%, transparent 38%),
-      radial-gradient(circle at 22% 75%, rgba(179,18,42,.22) 0%, transparent 40%),
-      /* base preta */
-      linear-gradient(180deg,#080605 0%, #020202 100%);
+      radial-gradient(circle at 78% 25%, rgba(255,30,55,.24) 0%, transparent 38%),
+      radial-gradient(circle at 22% 75%, rgba(179,18,42,.18) 0%, transparent 40%),
+      /* base cinza-marrom médio (era #080605 → agora clareado) */
+      linear-gradient(180deg,#26221c 0%, #1a1814 100%);
     z-index:0;
   }
   /* silhuetas de policiais armados (PC) + brasão de fundo + faixa "POLICIA CIVIL" */
@@ -258,7 +258,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   /* degradê na base da foto pra ela "fundir" com o fundo */
   .hero-photo::after{
     content:"";position:absolute;inset:0;border-radius:12px;
-    background:linear-gradient(180deg, transparent 55%, rgba(5,5,5,.55) 85%, #050505 100%);
+    background:linear-gradient(180deg, transparent 55%, rgba(30,28,23,.55) 85%, #1e1c17 100%);
     pointer-events:none;
   }
 
@@ -650,7 +650,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     align-items:stretch;
   }
   .mentor-single .mentor-photo{
-    background-color:#050505;
+    background-color:#1e1c17;
     background-repeat:no-repeat;
     background-position:center 15%;
     background-size:cover;
@@ -919,11 +919,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="badge"><span class="dot"></span> AO VIVO · NÃO FICA GRAVADO</div>
 
       <h1>
-        Aprenda o passo a passo que usei para passar na <span class="red">Polícia Militar, na Polícia Civil e na Polícia Judicial</span>, mesmo <span class="gold">trabalhando e estudando</span>
+        O método dos <span class="red">3 filtros</span> que me aprovou em <span class="gold">3 concursos policiais em menos de 2 anos</span> — sem largar o emprego
       </h1>
 
       <p class="lead">
-        Se você quer passar em concurso mas trabalha o dia inteiro e não sabe como render nas poucas horas que tem, <strong>essa aula é pra você.</strong>
+        Se você <strong>trabalha o dia inteiro</strong> e sente que estudar sem estratégia só te faz cansar sem chegar mais perto do resultado, <strong>essa aula abre o passo a passo</strong> que usei pra virar Polícia Militar, Polícia Civil e Polícia Judicial.
       </p>
 
       <p class="lead">
