@@ -54,7 +54,7 @@ Adicionar cada uma (marcar as 3 caixinhas: Production, Preview, Development):
 | 3 | `ZAPI_INSTANCE_ID` | `3CFC7412BF6B609E2D0046D85C1A9F0C` |
 | 4 | `ZAPI_TOKEN` | `EC6373D23FE01490ED3F0654` |
 | 5 | `ZAPI_CLIENT_TOKEN` | `F052c0a399ef04541a3af21bb1b33c244S` |
-| 6 | `GRUPO_URL` | `https://chat.whatsapp.com/BAkGIrBtRSmAz8FipMlKmx` |
+| 6 | `GRUPO_URL` | `https://chat.whatsapp.com/IjPFyf0zPatJNXN6jcP23q` |
 | 7 | `GRUPO_EQUIPE_COUNT` | `7` |
 
 Depois de salvar todas: **Deployments → menu ⋯ do último deploy → Redeploy**.
